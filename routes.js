@@ -4,8 +4,8 @@ const router = express.Router();
 const connection = require('./db');
 
 // Obtener todos los registros
-router.get('/registros', (req, res) => {
-  connection.query('SELECT * FROM tb_alumnos', (err, results) => {
+router.get('/usuarios', (req, res) => {
+  connection.query('SELECT * FROM usuarios', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });
@@ -33,9 +33,9 @@ router.get('/registros/:id', (req, res) => {
 });
 
 // Crear un nuevo registro
-router.post('/registros', (req, res) => {
+router.post('/citas', (req, res) => {
   const nuevoRegistro = req.body;
-  connection.query('INSERT INTO tb_alumnos SET ?', nuevoRegistro, (err, results) => {
+  connection.query('INSERT INTO citas SET ?', nuevoRegistro, (err, results) => {
     if (err) {
       console.error('Error al crear un nuevo registro:', err);
       res.status(500).json({ error: 'Error al crear un nuevo registro' });

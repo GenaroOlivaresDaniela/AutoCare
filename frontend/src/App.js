@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './pages/login'
+import Principal from './pages/principal'
+import AgendarCitas from './pages/AgendarCitas'
+import MenuSuperior from './components/Menu'
+import Footer from './components/Footer'
+import Background from './assets/Fondoo.jpg'
+import { Box } from '@mui/material';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+const App = () => {
+       return (
+        <Box
+        sx={{
+          backgroundImage: `url(${Background})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          width: '98.5vw',
+          height: '120vh',
+        }}
+      >
+        <Router >
+          <MenuSuperior/>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/principal" element={<Principal />} />
+                <Route path="/citasAgregar" element={<AgendarCitas />} />
+            </Routes>
+           
+        
+            <Footer />
+        
+        </Router>
+        </Box>
+
+    );
+};
 
 export default App;
