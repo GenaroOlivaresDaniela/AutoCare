@@ -142,7 +142,7 @@ CREATE TABLE
         `updated_at` datetime DEFAULT NULL,
         PRIMARY KEY (`id`),
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 11 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 /*Table structure for table `vehiculos` */
 DROP TABLE IF EXISTS `vehiculos`;
@@ -371,7 +371,7 @@ CREATE TABLE
         `created_at` datetime DEFAULT NULL,
         `updated_at` datetime DEFAULT NULL,
         PRIMARY KEY (`id`)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 51 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 /*Data for the table `servicios` */
 insert into
@@ -411,7 +411,7 @@ CREATE TABLE
         PRIMARY KEY (`id`),
         FOREIGN KEY (id_servicio) REFERENCES servicios (id),
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 51 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 /*Data for the table `servicios_trabajadores` */
 insert into
@@ -451,7 +451,7 @@ CREATE TABLE
         PRIMARY KEY (`id`),
         FOREIGN KEY (id_cita) REFERENCES citas (id),
         FOREIGN KEY (id_servicio_u) REFERENCES servicios_trabajadores (id)
-    ) ENGINE = InnoDB AUTO_INCREMENT = 51 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
+    ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 

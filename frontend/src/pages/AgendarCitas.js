@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, TextField, Button, Typography, Snackbar, Alert, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
@@ -7,18 +7,31 @@ function AgendarCita() {
   const [id_usuario, setTrabajador] = useState(''); 
   const [fecha, setFecha] = useState(''); 
   const [hora, setHora] = useState(''); 
-  const [servicio, setServicio] = useState(''); 
+  const [trabajadores, setTrabajadores] = useState([]); 
   const [open, setOpen] = useState(false); 
   const [error, setError] = useState(''); 
   const navigate = useNavigate(); 
 
+  
+  useEffect(() => {
+    const obtenerTrabajadores = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/api/trabajadores');
+        setTrabajadores(response.data); 
+      } catch (error) {
+        console.error('Error al obtener servicios:', error);
+      }
+    };
+
+    obtenerTrabajadores(); 
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    
-    if (!id_usuario || !fecha || !hora || !servicio) {
+    if (!id_usuario || !fecha || !hora ) {
       setError('Todos los campos son requeridos');
-      return; 
+      return;
     }
 
     setError(''); 
@@ -28,15 +41,14 @@ function AgendarCita() {
         id_usuario,
         fecha,
         hora,
-        servicio, 
+       
       });
       console.log('Registro exitoso:', response.data);
       setOpen(true); 
       
-      
       setTimeout(() => {
-        navigate('/'); 
-      }, 2000); 
+        navigate('/');
+      }, 2000);
 
     } catch (error) {
       console.error('Error al registrar la cita:', error);
@@ -74,34 +86,27 @@ function AgendarCita() {
             AGENDAR CITA
           </Typography>
           <form onSubmit={handleSubmit}>
-            {/* Select para el servicio */}
+            {/* Select para el servicio dinámico */}
             <FormControl fullWidth margin="normal">
-              <InputLabel id="servicio-label">Servicio</InputLabel>
+              <InputLabel id="trabajador-label">Trabajador</InputLabel>
               <Select
-                labelId="servicio-label"
-                value={servicio}
-                onChange={(e) => setServicio(e.target.value)}
-                label="Servicio"
-                error={!!error && !servicio} 
+                labelId="trabajador-label"
+                value={id_usuario}
+                onChange={(e) => setTrabajador(e.target.value)}
+                label="Trabajador"
+                error={!!error && !id_usuario} 
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="Consulta médica">Consulta médica</MenuItem>
-                <MenuItem value="Examen">Examen</MenuItem>
-                <MenuItem value="Terapia">Terapia</MenuItem>
+               
+                {/* Mapear los servicios obtenidos desde la base de datos */}
+                {trabajadores.map((trab) => (
+                  <MenuItem key={trab.id} value={trab.id}>
+                    {trab.nombre} {trab.app} {trab.apm}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
 
-            <TextField
-              fullWidth
-              label="Trabajador"
-              margin="normal"
-              value={id_usuario}
-              onChange={(e) => setTrabajador(e.target.value)}
-              error={!!error && !id_usuario}
-              helperText={!!error && !id_usuario ? 'El campo es requerido' : ''}
-            />
+           
             <TextField
               fullWidth
               label="Fecha"

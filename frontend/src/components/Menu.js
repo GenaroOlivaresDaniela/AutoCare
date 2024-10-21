@@ -9,7 +9,7 @@ import Logo from './../assets/logo.JPG'
 const MenuSuperior = () => {
   return (
     <AppBar position="static"
-    sx={{ backgroundColor: 'white', color: 'black' }}>
+    sx={{ backgroundColor: 'white', color: 'black', display: "flex",}}>
       <Toolbar sx={{ flexGrow: 1, top:'auto' }} variant="h6" component="div" color="inherit" >
         <img src={Logo} alt="Logo Local" width="300" height="100" />
         <Typography sx={{ flexGrow: 1}}>
