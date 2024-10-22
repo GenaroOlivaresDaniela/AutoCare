@@ -15,7 +15,7 @@ const MenuSuperior = () => {
         <Typography sx={{ flexGrow: 1}}>
         </Typography>
         
-        <Button color="inherit" component={Link} to="/">
+        <Button color="inherit" component={Link} to="/inicio">
           Inicio
         </Button>
         <Button color="inherit" component={Link} to="/servicio">
