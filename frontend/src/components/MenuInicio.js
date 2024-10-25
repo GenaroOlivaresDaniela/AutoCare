@@ -21,12 +21,10 @@ const MenuSuperior = () => {
         <Button color="inherit" component={Link} to="/servicio">
           Servicios
         </Button>
-        <Button color="inherit" component={Link} to="/login">
-          Iniciar Sesion
+        <Button color="inherit" component={Link} to="/galeria">
+          Galeria
         </Button>
-        <Button color="inherit" component={Link} to="/register">
-          Registrarse
-        </Button>
+       
       </Toolbar>
     </AppBar>
   );

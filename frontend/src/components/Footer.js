@@ -11,9 +11,9 @@ const Footer = () => {
   return (
     <AppBar 
       position="static" 
-      sx={{bottom: 0, backgroundColor: 'gray', color: 'black'}} 
+      sx={{top: 'auto',bottom: 0, backgroundColor: 'gray', color: 'black', display: 'flex' }} 
     >
-      <Toolbar sx={{ justifyContent: 'center', bottom: 0 }}>
+      <Toolbar sx={{ justifyContent: 'center'}}>
       <IconButton 
           href="https://wa.me/7228501290" 
           target="_blank" 

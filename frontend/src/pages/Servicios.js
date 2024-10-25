@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Grid, Typography } from '@mui/material';
+import {Grid}  from '@mui/material';
 import ServiciosCard from './../components/ServiciosCard'
 
 function Servicios() {

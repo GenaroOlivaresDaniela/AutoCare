@@ -8,14 +8,13 @@ import { Link } from 'react-router-dom';
 const Inicio = () => {
     return (
         <div>
-            {/* Título principal */}
-            <Typography variant="h3" align="center" gutterBottom>
+         
+            <Typography variant="h2" align="center" gutterBottom sx={{ flexGrow: 1, marginTop: '50px'}}>
                 Bienvenido @nombre
             </Typography>
             
-            {/* Grid para los íconos */}
             <Grid container justifyContent="center" spacing={4}>
-                {/* Primer ícono: Agendar Cita */}
+               
                 <Grid item xs={12} sm={4} textAlign="center">
                     <IconButton component={Link} to="/citasAgregar">
                         <Avatar sx={{ width: 100, height: 100, bgcolor: 'white' }}>
@@ -25,26 +24,25 @@ const Inicio = () => {
                     <Typography variant="h6" sx={{color: 'white'}}>AGENDAR CITA</Typography>
                 </Grid>
 
-                {/* Segundo ícono: Vehículos */}
                 <Grid item xs={12} sm={4} textAlign="center">
-                    <IconButton>
+                    <IconButton component={Link} to="/vehiculo">
                         <Avatar sx={{ width: 100, height: 100, bgcolor: 'white' }}>
                             <DirectionsCarIcon sx={{ fontSize: 50, color:'black' }} />
                         </Avatar>
                     </IconButton>
-                    <Typography variant="h6">VEHÍCULOS</Typography>
+                    <Typography variant="h6" sx={{color: 'white'}}>VEHÍCULOS</Typography>
                 </Grid>
 
-                {/* Tercer ícono: Mis Citas */}
                 <Grid item xs={12} sm={4} textAlign="center">
                     <IconButton>
                         <Avatar sx={{ width: 100, height: 100, bgcolor: 'white' }}>
                             <ChatIcon sx={{ fontSize: 50, color: 'black' }} />
                         </Avatar>
                     </IconButton>
-                    <Typography variant="h6">MIS CITAS</Typography>
+                    <Typography variant="h6" sx={{color: 'white'}}>MIS CITAS</Typography>
                 </Grid>
             </Grid>
+     
         </div>
     );
 };
