@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, TextField, Button, Typography, Snackbar, Alert, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import { Box, Card, CardContent, TextField, Button, Snackbar, Alert, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
+import Citas from './../assets/agendar_citas.png'
 
 function AgendarCita() {
   const [id_usuario, setTrabajador] = useState(''); 
@@ -47,7 +48,7 @@ function AgendarCita() {
       setOpen(true); 
       
       setTimeout(() => {
-        navigate('/');
+        navigate('/inicio');
       }, 2000);
 
     } catch (error) {
@@ -82,11 +83,17 @@ function AgendarCita() {
         }}
       >
         <CardContent>
-          <Typography variant="h6" align="center" gutterBottom>
-            AGENDAR CITA
-          </Typography>
+        <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <img src={Citas} alt="" width="400" height="100" />
+    </Box>
           <form onSubmit={handleSubmit}>
-            {/* Select para el servicio dinámico */}
+           
             <FormControl fullWidth margin="normal">
               <InputLabel id="trabajador-label">Trabajador</InputLabel>
               <Select
@@ -97,7 +104,7 @@ function AgendarCita() {
                 error={!!error && !id_usuario} 
               >
                
-                {/* Mapear los servicios obtenidos desde la base de datos */}
+              
                 {trabajadores.map((trab) => (
                   <MenuItem key={trab.id} value={trab.id}>
                     {trab.nombre} {trab.app} {trab.apm}
@@ -130,7 +137,7 @@ function AgendarCita() {
               helperText={!!error && !hora ? 'El campo es requerido' : ''}
             />
             <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-              <Button variant="contained" sx={{ backgroundColor: "red" }} type="button" onClick={() => navigate('/')}>
+              <Button variant="contained" sx={{ backgroundColor: "red" }} type="button" onClick={() => navigate('/inicio')}>
                 Cancelar
               </Button>
               <Button variant="contained" sx={{ backgroundColor: "#1976D2" }} type="submit">
@@ -140,7 +147,6 @@ function AgendarCita() {
           </form>
         </CardContent>
       </Card>
-      {/* Snackbar para mostrar mensajes */}
       <Snackbar 
         open={open} 
         autoHideDuration={2000} 

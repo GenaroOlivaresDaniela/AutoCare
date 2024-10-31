@@ -9,7 +9,7 @@ const Inicio = () => {
     return (
         <div>
          
-            <Typography variant="h2" align="center" gutterBottom sx={{ flexGrow: 1, marginTop: '50px'}}>
+            <Typography variant="h2" align="center" gutterBottom sx={{ flexGrow: 1, marginTop: '50px', color:'black'}}>
                 Bienvenido @nombre
             </Typography>
             
@@ -34,7 +34,7 @@ const Inicio = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={4} textAlign="center">
-                    <IconButton>
+                    <IconButton component={Link} to="/mis_citas">
                         <Avatar sx={{ width: 100, height: 100, bgcolor: 'white' }}>
                             <ChatIcon sx={{ fontSize: 50, color: 'black' }} />
                         </Avatar>

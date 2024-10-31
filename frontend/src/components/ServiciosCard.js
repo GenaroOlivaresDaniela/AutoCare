@@ -3,7 +3,7 @@ import { Card, CardContent, CardMedia, Typography} from '@mui/material';
 
 function ServiciosCard({ title, description, image }) {
     return (
-        <Card sx={{ color: 'green', backgroundColor: '#e2e2e2', marginTop: '30px', marginRight: '10px', marginLeft: '10px', marginBottom: '20px'}}>
+        <Card sx={{ color: 'green', backgroundColor: '#e2e2e2', marginTop: '30px', marginRight: '25px', marginLeft: '25px', marginBottom: '20px'}}>
             
             <CardContent sx={{ justifyContent: 'center' }}>
                 <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: 'center' }}>
