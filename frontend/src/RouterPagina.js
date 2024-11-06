@@ -15,7 +15,6 @@ import { Box } from '@mui/material';
 const RouterPagina = () => {
   const location = useLocation();
 
-  // Verifica si la ruta actual es una de las rutas del dashboard
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   return (
@@ -27,7 +26,6 @@ const RouterPagina = () => {
         width: '100vw',
         display: 'flex',
         flexDirection: 'column',
-        // Solo agrega el fondo si no estás en el dashboard
         backgroundImage: isDashboard ? 'none' : `url(${Background})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -35,7 +33,6 @@ const RouterPagina = () => {
       }}
     >
       <Box sx={{ flex: 1 }}>
-        {/* Solo muestra el MenuSuperior si no estamos en el dashboard */}
         {!isDashboard && <MenuSuperior />}
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -48,7 +45,6 @@ const RouterPagina = () => {
         </Routes>
       </Box>
 
-      {/* Solo muestra el Footer si no estamos en el dashboard */}
       {!isDashboard && <Footer />}
     </Box>
   );

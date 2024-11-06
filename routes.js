@@ -37,7 +37,7 @@ const bcrypt = require('bcrypt');
             /* 1. CRUD USUARIOS */
 // INDEX
 router.get('/usuarios', (req, res) => {
-  connection.query('SELECT * FROM usuarios', (err, results) => {
+  connection.query('SELECT * FROM usuarios ', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });
