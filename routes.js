@@ -2,6 +2,35 @@
 const express = require('express');
 const router = express.Router();
 const connection = require('./db');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
+/* *********************************************************************************** */
+
+          /* AUTH LOGIN */
+          router.post('/auth/login', (req, res) => {
+            const { correo, contrasena } = req.body;
+            console.log('Correo recibido:', correo);
+            console.log('Contraseña recibida:', contrasena);
+        
+            // Consulta a la base de datos para obtener el usuario por correo
+            connection.query('SELECT * FROM usuarios WHERE correo = ?', [correo], async (err, results) => {
+                if (err) {
+                    return res.status(500).json({ message: 'Error en el servidor' });
+                }
+                
+                const user = results[0];
+                if (!user || !(await bcrypt.compare(contrasena, user.contrasena))) {
+                    return res.status(401).json({ message: 'Credenciales inválidas' });
+                }
+        
+                // Si las credenciales son válidas, simplemente envía una respuesta exitosa
+                res.status(200).json({ message: 'Inicio de sesión exitoso', user });
+            });
+        });
+        
+
+
 
 
 /* *********************************************************************************** */
@@ -377,7 +406,7 @@ router.put('/citas/:id', (req, res) => {
 //DELETE
 router.delete('/citas/:id', (req, res) => {
   const id = req.params.id;
-  connection.query('DELETE FROM citas WHERE id = ?', id, (err, results) => {
+  connection.query('DELETE FROM citas WHERE id = ?', [id], (err, results) => {
     if (err) {
       console.error('Error al eliminar el registro:', err);
       res.status(500).json({ error: 'Error al eliminar el registro' });
@@ -674,6 +703,8 @@ router.delete('/galeria/:id', (req, res) => {
     res.json({ message: 'Registro eliminado exitosamente' });
   });
 });
+
+
 
 
 

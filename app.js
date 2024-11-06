@@ -15,10 +15,10 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: 'http://localhost:3000', // El origen del frontend
-  methods: ['GET', 'POST'], // Métodos permitidos
-  allowedHeaders: ['Content-Type'], // Encabezados permitidos
-  credentials: true // Si se necesitan enviar cookies
+  origin: 'http://localhost:3000', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type'], 
+  credentials: true 
 }));
 
 // Rutas de la API

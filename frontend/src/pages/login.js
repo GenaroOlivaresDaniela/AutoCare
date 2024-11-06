@@ -1,164 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, TextField, Button, Snackbar, Alert, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import React, { useState } from 'react';
+import { TextField, Button, Box, Typography } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; 
-import InicioSesion from './../assets/InicioSesion.jpg'
 
 function Login() {
-  const [id_usuario, setTrabajador] = useState(''); 
-  const [fecha, setFecha] = useState(''); 
-  const [hora, setHora] = useState(''); 
-  const [trabajadores, setTrabajadores] = useState([]); 
-  const [open, setOpen] = useState(false); 
-  const [error, setError] = useState(''); 
-  const navigate = useNavigate(); 
+    const [correo, setEmail] = useState('');
+    const [contrasena, setPassword] = useState('');
+    const [error, setError] = useState(null);
 
-  
-  useEffect(() => {
-    const obtenerTrabajadores = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/api/trabajadores');
-        setTrabajadores(response.data); 
-      } catch (error) {
-        console.error('Error al obtener servicios:', error);
-      }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError(null);
+
+        try {
+            await axios.post('http://localhost:3001/api/auth/login', { correo, contrasena });
+            alert('Inicio de sesión exitoso');
+            // Redirige o realiza alguna acción post-login
+        } catch (err) {
+            setError('Credenciales incorrectas');
+        }
     };
 
-    obtenerTrabajadores(); 
-  }, []);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!id_usuario || !fecha || !hora ) {
-      setError('Todos los campos son requeridos');
-      return;
-    }
-
-    setError(''); 
-
-    try {
-      const response = await axios.post('http://localhost:3001/api/citas', {
-        id_usuario,
-        fecha,
-        hora,
-       
-      });
-      console.log('Registro exitoso:', response.data);
-      setOpen(true); 
-      
-      setTimeout(() => {
-        navigate('/inicio');
-      }, 2000);
-
-    } catch (error) {
-      console.error('Error al registrar la cita:', error);
-      setOpen(false); 
-    }
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false); 
-  };
-
-  return (
-    <Box
-      sx={{
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Card
-        sx={{
-          width: 300,
-          padding: 4,
-          boxShadow: 3,
-        }}
-      >
-        <CardContent>
-        <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <img src={InicioSesion} alt="" width="400" height="100" />
-    </Box>
-          <form onSubmit={handleSubmit}>
-           
-            <FormControl fullWidth margin="normal">
-              <InputLabel id="trabajador-label">Trabajador</InputLabel>
-              <Select
-                labelId="trabajador-label"
-                value={id_usuario}
-                onChange={(e) => setTrabajador(e.target.value)}
-                label="Trabajador"
-                error={!!error && !id_usuario} 
-              >
-               
-              
-                {trabajadores.map((trab) => (
-                  <MenuItem key={trab.id} value={trab.id}>
-                    {trab.nombre} {trab.app} {trab.apm}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-           
+    return (
+        <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 300, mx: 'auto', mt: 5 }}>
+            <Typography variant="h4" component="h1" gutterBottom>Login</Typography>
             <TextField
-              fullWidth
-              label="Fecha"
-              type="date"
-              margin="normal"
-              value={fecha}
-              onChange={(e) => setFecha(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              error={!!error && !fecha}
-              helperText={!!error && !fecha ? 'El campo es requerido' : ''}
+                label="Email"
+                type="email"
+                fullWidth
+                required
+                value={correo}
+                onChange={(e) => setEmail(e.target.value)}
+                margin="normal"
             />
             <TextField
-              fullWidth
-              label="Hora"
-              type="time"
-              margin="normal"
-              value={hora}
-              onChange={(e) => setHora(e.target.value)}
-              InputLabelProps={{ shrink: true }}
-              error={!!error && !hora}
-              helperText={!!error && !hora ? 'El campo es requerido' : ''}
+                label="Password"
+                type="password"
+                fullWidth
+                required
+                value={contrasena}
+                onChange={(e) => setPassword(e.target.value)}
+                margin="normal"
             />
-            <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-              <Button variant="contained" sx={{ backgroundColor: "red" }} type="button" onClick={() => navigate('/inicio')}>
-                Cancelar
-              </Button>
-              <Button variant="contained" sx={{ backgroundColor: "#1976D2" }} type="submit">
-                Agendar
-              </Button>
-            </Box>
-          </form>
-        </CardContent>
-      </Card>
-      <Snackbar 
-        open={open} 
-        autoHideDuration={2000} 
-        onClose={handleClose} 
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }} 
-      >
-        <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
-          Formulario guardado con éxito!
-        </Alert>
-      </Snackbar>
-    </Box>
-  );
+            {error && <Typography color="error">{error}</Typography>}
+            <Button type="submit" variant="contained" color="primary" fullWidth>Login</Button>
+        </Box>
+    );
 }
 
 export default Login;

@@ -122,7 +122,7 @@ values
         'Genaro',
         'Olivares',
         'dany@gmail.com',
-        '123',
+        SHA2('123', 256),
         '7234543212',
         '',
         2,
