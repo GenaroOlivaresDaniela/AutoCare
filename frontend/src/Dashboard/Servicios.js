@@ -4,13 +4,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function Clientes() {
+export default function Servicios() {
     const [rows, setCardsData] = useState([]);
     const [open, setOpen] = useState(false); 
     const [rowToDelete, setRowToDelete] = useState(null); 
     const [editModalOpen, setEditModalOpen] = useState(false);  
     const [editableRow, setEditableRow] = useState(null);  
-    const [errors, setErrors] = useState({ contrasena: ''});
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
@@ -19,7 +18,7 @@ export default function Clientes() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/clientes');
+                const response = await fetch('http://localhost:3001/api/servicios');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -29,11 +28,6 @@ export default function Clientes() {
         fetchData();
     }, []);
 
-    const validatePassword = (password) => {
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(password);
-    };
-
     const handleEdit = (row) => {
         setEditableRow(row);  
         setEditModalOpen(true);   
@@ -42,28 +36,12 @@ export default function Clientes() {
     const handleCloseEditModal = () => {
         setEditModalOpen(false);  
         setEditableRow(null);  
-        setErrors({ contrasena: '' }); 
-    };
-
-    const handlePasswordChange = (e) => {
-        const newPassword = e.target.value;
-        setEditableRow({ ...editableRow, contrasena: newPassword });
-
-        if (!validatePassword(newPassword)) {
-            setErrors({
-                ...errors,
-                contrasena: 'La contraseña debe tener al menos 8 caracteres, incluir letras, números y símbolos.'
-            });
-        } else {
-            setErrors({ ...errors, contrasena: '' });
-        }
     };
 
     const handleSaveEdit = async () => {
-        
         try {
          
-            const response = await fetch(`http://localhost:3001/api/usuarios/${editableRow.id}`, {
+            const response = await fetch(`http://localhost:3001/api/servicios/${editableRow.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +78,7 @@ export default function Clientes() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/usuarios/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3001/api/servicios/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 
@@ -127,26 +105,27 @@ export default function Clientes() {
             height: 'auto',  
         }
     }}>
-                <DialogTitle sx={{textAlign: 'center', marginBottom: '15px'}}>Editar Cliente</DialogTitle>
+                <DialogTitle sx={{textAlign: 'center', marginBottom: '15px'}}>Editar Servicio</DialogTitle>
                 <DialogContent >
                     <TextField
-                    fullWidth
-                        label="Teléfono"
+                        label="Servicio"
                         type="text"
-                        value={editableRow?.telefono || ''}
-                        onChange={(e) => setEditableRow({ ...editableRow, telefono: e.target.value })}
+                        value={editableRow?.servicio || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, servicio: e.target.value })}
+                        fullWidth
                         sx={{ marginBottom: 2, marginTop: '10px' }}
                     />
-                     <TextField
-                     fullWidth
-                        label="Contraseña"
-                        type="password"
-                        value={editableRow?.contrasena || ''}
-                        onChange={handlePasswordChange}
-                        error={Boolean(errors.contrasena)}
-                        helperText={errors.contrasena}
-                        sx={{ marginBottom: 2 }}
+                    <TextField
+                        label="Descripción"
+                        type="text"
+                        value={editableRow?.descripcion || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, descripcion: e.target.value })}
+                        multiline
+                        rows={4}
+                        fullWidth
+                        sx={{ marginBottom: 2, marginTop: '10px' }}
                     />
+                    
                    
                 </DialogContent>
                 <DialogActions>
@@ -163,7 +142,7 @@ export default function Clientes() {
                 <DialogTitle>Confirmar Eliminación</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ¿Estás seguro de que quieres eliminar al cliente {rowToDelete?.nombre}?
+                        ¿Estás seguro de que quieres eliminar el servicio {rowToDelete?.servicio}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -187,10 +166,8 @@ export default function Clientes() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Foto</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Nombre</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>correo</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Teléfono</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Servicio</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Descripción</TableCell>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}></TableCell>
                         </TableRow>
                     </TableHead>
@@ -205,10 +182,8 @@ export default function Clientes() {
                                     marginY: 1,
                                 }}>
 
-                                <TableCell sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <Avatar></Avatar></TableCell>
-                                <TableCell sx={{ textAlign: 'center' }}>{row.nombre + ' ' + row.app + ' ' + row.apm}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }}>{row.correo}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }}>{row.telefono}</TableCell>
+                               <TableCell sx={{ textAlign: 'center' }}>{row.servicio}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }}>{row.descripcion}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }}>
                                     <IconButton onClick={() => handleEdit(row)} color="primary">
                                         <EditIcon />

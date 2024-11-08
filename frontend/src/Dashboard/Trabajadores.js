@@ -130,6 +130,7 @@ export default function Trabajadores() {
                 <DialogTitle sx={{textAlign: 'center', marginBottom: '15px'}}>Editar Trabajador</DialogTitle>
                 <DialogContent >
                     <TextField
+                    fullWidth
                         label="Teléfono"
                         type="text"
                         value={editableRow?.telefono || ''}

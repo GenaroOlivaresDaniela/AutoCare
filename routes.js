@@ -32,7 +32,76 @@ const bcrypt = require('bcrypt');
 
 
 
+/* *********************************************************************************** */
+  /* 4. CRUD PERFILES  */
+// INDEX
+router.get('/perfiles', (req, res) => {
+  connection.query('SELECT * FROM perfiles', (err, results) => {
+    if (err) {
+      console.error('Error al obtener registros:', err);
+      res.status(500).json({ error: 'Error al obtener registros' });
+      return;
+    }
+    res.json(results);
+  });
+});
 
+//STORE
+router.post('/perfiles', (req, res) => {
+  const nuevoRegistro = req.body;
+  connection.query('INSERT INTO perfiles SET ?', nuevoRegistro, (err, results) => {
+    if (err) {
+      console.error('Error al crear un nuevo registro:', err);
+      res.status(500).json({ error: 'Error al crear un nuevo registro' });
+      return;
+    }
+    res.status(201).json({ message: 'Registro creado exitosamente' });
+  });
+});
+
+//SHOW
+router.get('/perfiles/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query('SELECT * FROM perfiles WHERE id = ?', id, (err, results) => {
+    if (err) {
+      console.error('Error al obtener el registro:', err);
+      res.status(500).json({ error: 'Error al obtener el registro' });
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).json({ error: 'Registro no encontrado' });
+      return;
+    }
+    res.json(results[0]);
+  });
+});
+
+//UPDATE
+router.put('/perfiles/:id', (req, res) => {
+  const id = req.params.id;
+  const datosActualizados = req.body;
+  connection.query('UPDATE perfiles SET ? WHERE id = ?', [datosActualizados, id], (err, results) => {
+    if (err) {
+      console.error('Error al actualizar el registro:', err);
+      res.status(500).json({ error: 'Error al actualizar el registro' });
+      return;
+    }
+    res.json({ message: 'Registro actualizado exitosamente' });
+  });
+});
+
+//DELETE
+router.delete('/perfiles/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query('DELETE FROM perfiles WHERE id = ?', id, (err, results) => {
+    if (err) {
+      console.error('Error al eliminar el registro:', err);
+      res.status(500).json({ error: 'Error al eliminar el registro' });
+      return;
+    }
+    res.json({ message: 'Registro eliminado exitosamente' });
+  });
+});
 /* *********************************************************************************** */
             /* 1. CRUD USUARIOS */
 // INDEX
@@ -133,7 +202,7 @@ router.get('/clientes', (req, res) => {
             /*2. CRUD VEHICULOS  */
 // INDEX
 router.get('/vehiculos', (req, res) => {
-  connection.query('SELECT * FROM vehiculos', (err, results) => {
+  connection.query('SELECT vehiculos.*, usuarios.nombre, usuarios.app, usuarios.apm FROM vehiculos JOIN usuarios ON vehiculos.id_usuario = usuarios.id', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });
@@ -349,7 +418,7 @@ router.delete('/servicios/:id', (req, res) => {
   /* 5. CRUD CITAS  */
 // INDEX
 router.get('/citas', (req, res) => {
-  connection.query('SELECT * FROM citas', (err, results) => {
+  connection.query('SELECT citas.*, usuarios.nombre, usuarios.app, usuarios.apm, servicios.servicio FROM citas JOIN usuarios ON citas.id_usuario = usuarios.id JOIN citas_servicios_trabajadores ON citas_servicios_trabajadores.id_cita = citas.id JOIN servicios_trabajadores ON citas_servicios_trabajadores.id_servicio_u= servicios_trabajadores.id JOIN servicios ON servicios_trabajadores.id_servicio=servicios.id;', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });
@@ -565,7 +634,7 @@ router.delete('/status_citas/:id', (req, res) => {
   /* 8. CRUD CITAS_SERVICIOS_TRABAJADORES  */
 // INDEX
 router.get('/citas_servicios_trabajadores', (req, res) => {
-  connection.query('SELECT * FROM citas_servicios_trabajadores', (err, results) => {
+  connection.query('SELECT citas_servicios_trabajadores.*,citas.fecha,servicios.servicio,usuario_cita.nombre AS nombre_usuario_cita,usuario_cita.app AS app_usuario_cita,usuario_cita.apm AS apm_usuario_cita,usuario_servicio.nombre AS nombre_usuario_servicio,usuario_servicio.app AS app_usuario_servicio,usuario_servicio.apm AS apm_usuario_servicio FROM citas_servicios_trabajadores JOIN citas ON citas_servicios_trabajadores.id_cita = citas.id JOIN usuarios AS usuario_cita ON citas.id_usuario = usuario_cita.id JOIN servicios_trabajadores ON citas_servicios_trabajadores.id_servicio_u = servicios_trabajadores.id JOIN servicios ON servicios_trabajadores.id_servicio = servicios.id JOIN usuarios AS usuario_servicio ON servicios_trabajadores.id_usuario = usuario_servicio.id;', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });
@@ -704,6 +773,76 @@ router.delete('/galeria/:id', (req, res) => {
   });
 });
 
+/* *********************************************************************************** */
+  /* 8. CRUD SERVICIOS_TRABAJADORES  */
+// INDEX
+router.get('/servicios_trabajadores', (req, res) => {
+  connection.query('SELECT servicios.servicio, usuarios.nombre, usuarios.app, usuarios.apm FROM servicios_trabajadores JOIN servicios ON servicios_trabajadores.id_servicio = servicios.id JOIN usuarios ON servicios_trabajadores.id_usuario = usuarios.id', (err, results) => {
+    if (err) {
+      console.error('Error al obtener registros:', err);
+      res.status(500).json({ error: 'Error al obtener registros' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+//STORE
+router.post('/servicios_trabajadores', (req, res) => {
+  const nuevoRegistro = req.body;
+  connection.query('INSERT INTO servicios_trabajadores SET ?', nuevoRegistro, (err, results) => {
+    if (err) {
+      console.error('Error al crear un nuevo registro:', err);
+      res.status(500).json({ error: 'Error al crear un nuevo registro' });
+      return;
+    }
+    res.status(201).json({ message: 'Registro creado exitosamente' });
+  });
+});
+
+//SHOW
+router.get('/servicios_trabajadores/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query('SELECT * FROM servicios_trabajadores WHERE id = ?', id, (err, results) => {
+    if (err) {
+      console.error('Error al obtener el registro:', err);
+      res.status(500).json({ error: 'Error al obtener el registro' });
+      return;
+    }
+    if (results.length === 0) {
+      res.status(404).json({ error: 'Registro no encontrado' });
+      return;
+    }
+    res.json(results[0]);
+  });
+});
+
+//UPDATE
+router.put('/servicios_trabajadores/:id', (req, res) => {
+  const id = req.params.id;
+  const datosActualizados = req.body;
+  connection.query('UPDATE servicios_trabajadores SET ? WHERE id = ?', [datosActualizados, id], (err, results) => {
+    if (err) {
+      console.error('Error al actualizar el registro:', err);
+      res.status(500).json({ error: 'Error al actualizar el registro' });
+      return;
+    }
+    res.json({ message: 'Registro actualizado exitosamente' });
+  });
+});
+
+//DELETE
+router.delete('/servicios_trabajadores/:id', (req, res) => {
+  const id = req.params.id;
+  connection.query('DELETE FROM servicios_trabajadores WHERE id = ?', id, (err, results) => {
+    if (err) {
+      console.error('Error al eliminar el registro:', err);
+      res.status(500).json({ error: 'Error al eliminar el registro' });
+      return;
+    }
+    res.json({ message: 'Registro eliminado exitosamente' });
+  });
+});
 
 
 

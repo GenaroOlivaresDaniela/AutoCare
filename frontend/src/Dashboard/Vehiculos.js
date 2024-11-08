@@ -4,13 +4,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function Clientes() {
+export default function Vehiculos() {
     const [rows, setCardsData] = useState([]);
     const [open, setOpen] = useState(false); 
     const [rowToDelete, setRowToDelete] = useState(null); 
     const [editModalOpen, setEditModalOpen] = useState(false);  
     const [editableRow, setEditableRow] = useState(null);  
-    const [errors, setErrors] = useState({ contrasena: ''});
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
@@ -19,20 +18,16 @@ export default function Clientes() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/clientes');
+                const response = await fetch('http://localhost:3001/api/vehiculos');
                 const data = await response.json();
                 setCardsData(data);
+                
             } catch (error) {
                 console.log("Error al obtener los datos:", error);
             }
         };
         fetchData();
     }, []);
-
-    const validatePassword = (password) => {
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(password);
-    };
 
     const handleEdit = (row) => {
         setEditableRow(row);  
@@ -42,33 +37,18 @@ export default function Clientes() {
     const handleCloseEditModal = () => {
         setEditModalOpen(false);  
         setEditableRow(null);  
-        setErrors({ contrasena: '' }); 
-    };
-
-    const handlePasswordChange = (e) => {
-        const newPassword = e.target.value;
-        setEditableRow({ ...editableRow, contrasena: newPassword });
-
-        if (!validatePassword(newPassword)) {
-            setErrors({
-                ...errors,
-                contrasena: 'La contraseña debe tener al menos 8 caracteres, incluir letras, números y símbolos.'
-            });
-        } else {
-            setErrors({ ...errors, contrasena: '' });
-        }
     };
 
     const handleSaveEdit = async () => {
-        
         try {
-         
-            const response = await fetch(`http://localhost:3001/api/usuarios/${editableRow.id}`, {
+            const { nombre, app, apm, ...vehiculoData } = editableRow;
+
+            const response = await fetch(`http://localhost:3001/api/vehiculos/${editableRow.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(editableRow),
+                body: JSON.stringify(vehiculoData),
             });
 
             if (response.ok) {
@@ -100,7 +80,7 @@ export default function Clientes() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/usuarios/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3001/api/vehiculos/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 
@@ -127,26 +107,49 @@ export default function Clientes() {
             height: 'auto',  
         }
     }}>
-                <DialogTitle sx={{textAlign: 'center', marginBottom: '15px'}}>Editar Cliente</DialogTitle>
+                <DialogTitle sx={{textAlign: 'center', marginBottom: '15px'}}>Editar Vehiculo</DialogTitle>
                 <DialogContent >
                     <TextField
-                    fullWidth
-                        label="Teléfono"
+                        label="Modelo"
                         type="text"
-                        value={editableRow?.telefono || ''}
-                        onChange={(e) => setEditableRow({ ...editableRow, telefono: e.target.value })}
+                        value={editableRow?.modelo || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, modelo: e.target.value })}
+                        fullWidth
                         sx={{ marginBottom: 2, marginTop: '10px' }}
                     />
-                     <TextField
-                     fullWidth
-                        label="Contraseña"
-                        type="password"
-                        value={editableRow?.contrasena || ''}
-                        onChange={handlePasswordChange}
-                        error={Boolean(errors.contrasena)}
-                        helperText={errors.contrasena}
-                        sx={{ marginBottom: 2 }}
+                    <TextField
+                        label="Número de Placa"
+                        type="text"
+                        value={editableRow?.no_placa || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, no_placa: e.target.value })}
+                        fullWidth
+                        sx={{ marginBottom: 2, marginTop: '10px' }}
                     />
+                    <TextField
+                        label="Número de Serie"
+                        type="text"
+                        value={editableRow?.no_serie || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, no_serie: e.target.value })}
+                        fullWidth
+                        sx={{ marginBottom: 2, marginTop: '10px' }}
+                    />
+                    <TextField
+                        label="Año"
+                        type="numeric"
+                        value={editableRow?.ano || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, ano: e.target.value })}
+                        fullWidth
+                        sx={{ marginBottom: 2, marginTop: '10px' }}
+                    />
+                    <TextField
+                        label="Marca"
+                        type="text"
+                        value={editableRow?.marca || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, marca: e.target.value })}
+                        fullWidth
+                        sx={{ marginBottom: 2, marginTop: '10px' }}
+                    />
+                    
                    
                 </DialogContent>
                 <DialogActions>
@@ -163,7 +166,7 @@ export default function Clientes() {
                 <DialogTitle>Confirmar Eliminación</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        ¿Estás seguro de que quieres eliminar al cliente {rowToDelete?.nombre}?
+                        ¿Estás seguro de que quieres eliminar el vehiculo con número de placa {rowToDelete?.no_placa}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -187,10 +190,12 @@ export default function Clientes() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Foto</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Nombre</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>correo</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Teléfono</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Modelo</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Número de Placa</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Número de Serie</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Año</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Marca</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Cliente</TableCell>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}></TableCell>
                         </TableRow>
                     </TableHead>
@@ -205,10 +210,12 @@ export default function Clientes() {
                                     marginY: 1,
                                 }}>
 
-                                <TableCell sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <Avatar></Avatar></TableCell>
+                               <TableCell sx={{ textAlign: 'center' }}>{row.modelo}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }}>{row.no_placa}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }}>{row.no_serie}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }}>{row.ano}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }}>{row.marca}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }}>{row.nombre + ' ' + row.app + ' ' + row.apm}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }}>{row.correo}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }}>{row.telefono}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }}>
                                     <IconButton onClick={() => handleEdit(row)} color="primary">
                                         <EditIcon />
