@@ -1,9 +1,11 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import Login from './pages/login';
+import InicioSesion from './Auth/login';
+import Register from './Auth/register';
 import Principal from './pages/principal';
 import AgendarCitas from './pages/AgendarCitas';
-import MenuSuperior from './components/MenuInicio';
+import MenuInicio from './components/MenuInicio';
+import Menu from './components/Menu';
 import Footer from './components/Footer';
 import Background from './assets/Fondoo.jpg';
 import Servicios from './pages/Servicios';
@@ -11,11 +13,14 @@ import Inicio from './pages/Inicio';
 import Vehiculos from './pages/Vehiculos';
 import MisCitas from './pages/MisCitas';
 import { Box } from '@mui/material';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const RouterPagina = () => {
   const location = useLocation();
-
   const isDashboard = location.pathname.startsWith("/dashboard");
+
+  const isAuthenticated = !!localStorage.getItem('token');
+
 
   return (
     <Box
@@ -33,15 +38,17 @@ const RouterPagina = () => {
       }}
     >
       <Box sx={{ flex: 1 }}>
-        {!isDashboard && <MenuSuperior />}
+      {!isDashboard && (isAuthenticated ? <MenuInicio /> : <Menu />)}
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<InicioSesion />} />
           <Route path="/" element={<Principal />} />
-          <Route path="/inicio" element={<Inicio />} />
-          <Route path="/citasAgregar" element={<AgendarCitas />} />
+
+          <Route path="/inicio" element={<ProtectedRoute><Inicio/></ProtectedRoute>} />
+          <Route path="/citasAgregar" element={<ProtectedRoute><AgendarCitas/></ProtectedRoute>} />
           <Route path="/servicio" element={<Servicios />} />
-          <Route path="/vehiculo" element={<Vehiculos />} />
-          <Route path="/mis_citas" element={<MisCitas />} />
+          <Route path="/vehiculo" element={<ProtectedRoute><Vehiculos /></ProtectedRoute>} />
+          <Route path="/mis_citas" element={<ProtectedRoute><MisCitas /></ProtectedRoute>} />
         </Routes>
       </Box>
 
