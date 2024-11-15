@@ -44,9 +44,9 @@ const RouterPagina = () => {
           <Route path="/login" element={<InicioSesion />} />
           <Route path="/" element={<Principal />} />
 
+          <Route path="/servicio" element={<Servicios/>} />
           <Route path="/inicio" element={<ProtectedRoute><Inicio/></ProtectedRoute>} />
           <Route path="/citasAgregar" element={<ProtectedRoute><AgendarCitas/></ProtectedRoute>} />
-          <Route path="/servicio" element={<Servicios />} />
           <Route path="/vehiculo" element={<ProtectedRoute><Vehiculos /></ProtectedRoute>} />
           <Route path="/mis_citas" element={<ProtectedRoute><MisCitas /></ProtectedRoute>} />
         </Routes>

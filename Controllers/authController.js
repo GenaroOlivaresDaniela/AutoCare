@@ -23,7 +23,7 @@ exports.login = async (req, res) => {
       return res.status(400).json({ message: 'Credenciales incorrectas' });
     }
 
-    const token = jwt.sign({ id: user.id }, 'secret_key', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user.id }, 'secret_key');
 
     res.json({ token, user});
   } catch (error) {

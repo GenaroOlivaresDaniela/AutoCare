@@ -12,7 +12,7 @@ const Inicio = () => {
         <div>
          
             <Typography variant="h2" align="center" gutterBottom sx={{ flexGrow: 1, marginTop: '50px', color:'black'}}>
-                Bienvenido {user.nombre} {user.app} {user.apm}
+                Bienvenid@ {user.nombre} {user.app} {user.apm}
             </Typography>
             
             <Grid container justifyContent="center" spacing={4}>

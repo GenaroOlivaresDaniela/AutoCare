@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext  } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -10,13 +10,20 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import Logo from './../assets/logo.JPG';
 import { useNavigate } from 'react-router-dom'; 
+import { UserContext } from '../context/UserContext';
 
 const MenuInicio = ({ usuario = {} }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
+  const {logoutUser } = useContext(UserContext);
   const navigate = useNavigate(); 
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/');
+  };
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'white', color: 'black' }}>
@@ -47,7 +54,7 @@ const MenuInicio = ({ usuario = {} }) => {
           onClose={handleMenuClose}
         >
           <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
-          <MenuItem onClick={() => navigate('/login')}>Cerrar sesión</MenuItem>
+          <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>
