@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Grid, Typography, IconButton, Avatar } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'; 
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'; 
 import ChatIcon from '@mui/icons-material/Chat'; 
 import { Link } from 'react-router-dom'; 
+import { UserContext } from '../context/UserContext';
 
 const Inicio = () => {
+    const { user } = useContext(UserContext);
     return (
         <div>
          
             <Typography variant="h2" align="center" gutterBottom sx={{ flexGrow: 1, marginTop: '50px', color:'black'}}>
-                Bienvenido @nombre
+                Bienvenido {user.nombre} {user.app} {user.apm}
             </Typography>
             
             <Grid container justifyContent="center" spacing={4}>

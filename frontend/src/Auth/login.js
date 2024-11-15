@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, {  useContext, useState } from 'react';
 import { TextField, Button, Card, CardContent,Typography, CardActions, Snackbar, Alert,} from '@mui/material';
 import axios from 'axios';
 import InicioSesion from './../assets/InicioSesion.jpg'
 import { useNavigate } from 'react-router-dom'; 
+import { UserContext } from '../context/UserContext';
 
 function Login() {
+  const { loginUser } = useContext(UserContext);
   const [form, setForm] = useState({ correo: '', contrasena: '' });
   const [error, setError] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -28,17 +30,19 @@ function Login() {
       setError(''); 
     try {
       const response = await axios.post('http://localhost:3001/api/login', form);
-      const { token, id_perfil } = response.data;
+      const { token, user } = response.data;
       localStorage.setItem('token', token);
+      loginUser(user);
       console.log('Login exitoso');
+      console.log(response.data);
       setSnackbarMessage('Bienvenido!');
                 setSnackbarSeverity('success');
                 setOpenSnackbar(true);
 
                 setTimeout(() => {
-                  if (id_perfil === 1) {
+                  if (user.id_perfil === 1) {
                     navigate('/inicio');
-                  } else if (id_perfil === 3) {
+                  } else if (user.id_perfil === 3) {
                     navigate('/dashboard/clientes');
                   } else {
                     setMessage('Perfil no autorizado');

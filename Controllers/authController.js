@@ -24,8 +24,8 @@ exports.login = async (req, res) => {
     }
 
     const token = jwt.sign({ id: user.id }, 'secret_key', { expiresIn: '1h' });
-    const id_perfil = user.id_perfil;
-    res.json({ token, id_perfil});
+
+    res.json({ token, user});
   } catch (error) {
     res.status(500).json({ message: 'Error en el login', error });
   }

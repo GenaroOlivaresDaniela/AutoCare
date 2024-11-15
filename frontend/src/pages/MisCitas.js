@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
+import React, { useState, useEffect, useContext } from 'react';
+import { Table, TableBody, TableCell,Typography, TableContainer, Snackbar, Alert, TableHead, TableRow, Paper, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { UserContext } from '../context/UserContext';
 
 export default function CustomTable() {
     const [rows, setCardsData] = useState([]);
@@ -10,11 +11,17 @@ export default function CustomTable() {
     const [rowToDelete, setRowToDelete] = useState(null); 
     const [editModalOpen, setEditModalOpen] = useState(false);  
     const [editableRow, setEditableRow] = useState(null);  
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success'); 
+
+    const { user } = useContext(UserContext);
+    const id_usuario = user.id;
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/citas');
+                const response = await fetch(`http://localhost:3001/api/citas/${id_usuario}`);
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -22,7 +29,7 @@ export default function CustomTable() {
             }
         };
         fetchData();
-    }, []);
+    }, );
 
     const formatoFecha = (fecha) => {
         if (!fecha) return "Fecha no disponible";
@@ -69,6 +76,9 @@ export default function CustomTable() {
                 setCardsData((prevRows) => prevRows.map((row) => 
                     row.id === editableRow.id ? editableRow : row
                 ));
+                setSnackbarMessage('Se edito correctamente!');
+                setSnackbarSeverity('success');
+                setOpenSnackbar(true);
                 handleCloseEditModal();
             } else {
                 console.error('Error al guardar los cambios');
@@ -193,6 +203,11 @@ export default function CustomTable() {
                 </DialogActions>
             </Dialog>
 
+            
+
+            <Typography variant="h3" align="center" gutterBottom sx={{ flexGrow: 1, color:'black'}}>
+                Mis citas pendientes
+            </Typography>
             <TableContainer component={Paper} sx={{ backgroundColor: '#2D2D44', display: 'flex' }}>
                 <Table>
                     <TableHead>
@@ -230,6 +245,15 @@ export default function CustomTable() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Snackbar 
+                open={openSnackbar} 
+                autoHideDuration={2000} 
+                onClose={() => setOpenSnackbar(false)} 
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }} >
+                <Alert onClose={() => setOpenSnackbar(false)} variant="filled" severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }

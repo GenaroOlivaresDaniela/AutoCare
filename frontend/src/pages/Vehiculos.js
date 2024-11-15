@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { Box, Card, CardContent, TextField, Button, Snackbar, Alert, Grid } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext'; 
 import Vehiculo from './../assets/vehiculos.jpg';
+import { UserContext } from '../context/UserContext';
+
 
 function Vehiculos() {
-  const { user } = useAuth(); 
   const [modelo, setModelo] = useState(''); 
   const [no_placa, setPlaca] = useState(''); 
   const [no_serie, setSerie] = useState(''); 
@@ -15,6 +15,7 @@ function Vehiculos() {
   const [open, setOpen] = useState(false); 
   const [error, setError] = useState(''); 
   const navigate = useNavigate(); 
+  const { user } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +34,7 @@ function Vehiculos() {
         no_serie,
         ano,
         marca,
-        id_usuario: user?.id_usuario, 
+        id_usuario: user.id, 
       });
       console.log('Registro exitoso:', response.data);
       setOpen(true); 

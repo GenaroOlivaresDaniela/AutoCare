@@ -1,36 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, Card, CardContent, TextField, Button, Snackbar, Alert, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; 
 import Citas from './../assets/agendar_citas.png'
+import { UserContext } from '../context/UserContext';
 
 function AgendarCita() {
-  const [id_usuario, setTrabajador] = useState(''); 
+  // const [id_usuario, setTrabajador] = useState(''); 
   const [fecha, setFecha] = useState(''); 
   const [hora, setHora] = useState(''); 
-  const [trabajadores, setTrabajadores] = useState([]); 
+  // const [trabajadores, setTrabajadores] = useState([]); 
   const [open, setOpen] = useState(false); 
   const [error, setError] = useState(''); 
   const navigate = useNavigate(); 
+  const { user } = useContext(UserContext);
 
   
-  useEffect(() => {
-    const obtenerTrabajadores = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/api/trabajadores');
-        setTrabajadores(response.data); 
-      } catch (error) {
-        console.error('Error al obtener servicios:', error);
-      }
-    };
+  // useEffect(() => {
+    // const obtenerTrabajadores = async () => {
+    //   try {
+    //     const response = await axios.get('http://localhost:3001/api/trabajadores');
+    //     setTrabajadores(response.data); 
+    //   } catch (error) {
+    //     console.error('Error al obtener servicios:', error);
+    //   }
+    // };
 
-    obtenerTrabajadores(); 
-  }, []);
+    // obtenerTrabajadores(); 
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!id_usuario || !fecha || !hora ) {
+    if (!fecha || !hora ) {
       setError('Todos los campos son requeridos');
       return;
     }
@@ -39,7 +41,7 @@ function AgendarCita() {
 
     try {
       const response = await axios.post('http://localhost:3001/api/citas', {
-        id_usuario,
+        id_usuario: user.id,
         fecha,
         hora,
        
@@ -94,7 +96,7 @@ function AgendarCita() {
     </Box>
           <form onSubmit={handleSubmit}>
            
-            <FormControl fullWidth margin="normal">
+            {/* <FormControl fullWidth margin="normal">
               <InputLabel id="trabajador-label">Trabajador</InputLabel>
               <Select
                 labelId="trabajador-label"
@@ -111,7 +113,7 @@ function AgendarCita() {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
 
            
             <TextField

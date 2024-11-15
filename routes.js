@@ -425,19 +425,15 @@ router.post('/citas', (req, res) => {
 });
 
 //SHOW
-router.get('/citas/:id', (req, res) => {
-  const id = req.params.id;
-  connection.query('SELECT * FROM citas WHERE id = ?', id, (err, results) => {
+router.get('/citas/:id_usuario', (req, res) => {
+  const id_usuario = req.params.id_usuario;
+  connection.query('SELECT * FROM citas WHERE id_usuario = ?', id_usuario, (err, results) => {
     if (err) {
-      console.error('Error al obtener el registro:', err);
-      res.status(500).json({ error: 'Error al obtener el registro' });
+      console.error('Error al obtener registros:', err);
+      res.status(500).json({ error: 'Error al obtener registros' });
       return;
     }
-    if (results.length === 0) {
-      res.status(404).json({ error: 'Registro no encontrado' });
-      return;
-    }
-    res.json(results[0]);
+    res.json(results);
   });
 });
 
