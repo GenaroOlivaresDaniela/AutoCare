@@ -42,7 +42,7 @@ function Login() {
                 setTimeout(() => {
                   if (user.id_perfil === 1) {
                     navigate('/inicio');
-                  } else if (user.id_perfil === 3) {
+                  } else if (user.id_perfil === 2) {
                     navigate('/dashboard/clientes');
                   } else {
                     setMessage('Perfil no autorizado');

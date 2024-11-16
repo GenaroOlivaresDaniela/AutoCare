@@ -401,7 +401,7 @@ router.delete('/servicios/:id', (req, res) => {
   /* 5. CRUD CITAS  */
 // INDEX
 router.get('/citas', (req, res) => {
-  connection.query('SELECT citas.*, usuarios.nombre, usuarios.app, usuarios.apm, servicios.servicio FROM citas JOIN usuarios ON citas.id_usuario = usuarios.id JOIN citas_servicios_trabajadores ON citas_servicios_trabajadores.id_cita = citas.id JOIN servicios_trabajadores ON citas_servicios_trabajadores.id_servicio_u= servicios_trabajadores.id JOIN servicios ON servicios_trabajadores.id_servicio=servicios.id;', (err, results) => {
+  connection.query('SELECT citas.*, usuarios.nombre, usuarios.app, usuarios.apm, servicios.servicio FROM citas JOIN usuarios ON citas.id_usuario = usuarios.id JOIN citas_servicios_trabajadores ON citas_servicios_trabajadores.id_cita = citas.id JOIN servicios_trabajadores ON citas_servicios_trabajadores.id_servicio= servicios_trabajadores.id_servicio JOIN servicios ON servicios_trabajadores.id_servicio=servicios.id;', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });
@@ -636,7 +636,7 @@ router.delete('/status_citas/:id', (req, res) => {
   /* 8. CRUD CITAS_SERVICIOS_TRABAJADORES  */
 // INDEX
 router.get('/citas_servicios_trabajadores', (req, res) => {
-  connection.query('SELECT citas_servicios_trabajadores.*,citas.fecha,servicios.servicio,usuario_cita.nombre AS nombre_usuario_cita,usuario_cita.app AS app_usuario_cita,usuario_cita.apm AS apm_usuario_cita,usuario_servicio.nombre AS nombre_usuario_servicio,usuario_servicio.app AS app_usuario_servicio,usuario_servicio.apm AS apm_usuario_servicio FROM citas_servicios_trabajadores JOIN citas ON citas_servicios_trabajadores.id_cita = citas.id JOIN usuarios AS usuario_cita ON citas.id_usuario = usuario_cita.id JOIN servicios_trabajadores ON citas_servicios_trabajadores.id_servicio_u = servicios_trabajadores.id JOIN servicios ON servicios_trabajadores.id_servicio = servicios.id JOIN usuarios AS usuario_servicio ON servicios_trabajadores.id_usuario = usuario_servicio.id;', (err, results) => {
+  connection.query('SELECT citas_servicios_trabajadores.*,citas.fecha,servicios.servicio,usuario_cita.nombre AS nombre_usuario_cita,usuario_cita.app AS app_usuario_cita,usuario_cita.apm AS apm_usuario_cita,usuario_servicio.nombre AS nombre_usuario_servicio,usuario_servicio.app AS app_usuario_servicio,usuario_servicio.apm AS apm_usuario_servicio FROM citas_servicios_trabajadores JOIN citas ON citas_servicios_trabajadores.id_cita = citas.id JOIN usuarios AS usuario_cita ON citas.id_usuario = usuario_cita.id JOIN servicios_trabajadores ON citas_servicios_trabajadores.id_servicio = servicios_trabajadores.id_servicio JOIN servicios ON servicios_trabajadores.id_servicio = servicios.id JOIN usuarios AS usuario_servicio ON servicios_trabajadores.id_usuario = usuario_servicio.id;', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });

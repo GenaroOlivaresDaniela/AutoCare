@@ -57,7 +57,7 @@ const MenuInicio = () => {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+          {/* <MenuItem onClick={handleMenuClose}>Perfil</MenuItem> */}
           <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
         </Menu>
       </Toolbar>

@@ -118,7 +118,7 @@ export default function Clientes() {
     };
 
     return (
-        <Box sx={{ backgroundColor: 'green', padding: 4, width: 900, display: 'block', justifyContent: 'center', marginTop: '30px', marginRight: '25px', marginLeft: '25px', marginBottom: 0 }}>
+        <Box sx={{ backgroundColor: 'white', padding: 4, width: 900, display: 'block', justifyContent: 'center', margin: 0 }}>
 
             <Dialog open={editModalOpen} onClose={handleCloseEditModal}sx={{
         '& .MuiDialog-paper': {
@@ -178,8 +178,8 @@ export default function Clientes() {
 
             <Grid textAlign="right">
                     <IconButton >
-                        <Avatar sx={{ width: 50, height: 50, bgcolor: 'white' }}>
-                            <AddIcon sx={{ fontSize: 40, color: 'black'}} />
+                        <Avatar sx={{ width: 50, height: 50, bgcolor: '#1F3A5F' }}>
+                            <AddIcon sx={{ fontSize: 40, color: 'white'}} />
                         </Avatar>
                     </IconButton>
                 </Grid>
