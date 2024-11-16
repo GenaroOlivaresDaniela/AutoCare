@@ -420,9 +420,32 @@ router.post('/citas', (req, res) => {
       res.status(500).json({ error: 'Error al crear un nuevo registro' });
       return;
     }
-    res.status(201).json({ message: 'Registro creado exitosamente' });
+    res.status(201).json({ id: results.insertId });
   });
 });
+
+router.get('/verificar_cita', (req, res) => {
+  const { id_trabajador, fecha, hora } = req.query;
+
+  if (!id_trabajador || !fecha || !hora) {
+    res.status(400).json({ error: 'Todos los parámetros (id_trabajador, fecha, hora) son requeridos.' });
+    return;
+  }
+
+  const query = 'SELECT COUNT(*) AS ocupado FROM citas WHERE id_trabajador = ? AND fecha = ? AND hora = ?';
+
+  connection.query(query, [id_trabajador, fecha, hora], (err, results) => {
+    if (err) {
+      console.error('Error al verificar disponibilidad:', err);
+      res.status(500).json({ error: 'Error al verificar disponibilidad' });
+      return;
+    }
+
+    const ocupado = results[0].ocupado > 0;
+    res.json({ ocupado });
+  });
+});
+
 
 //SHOW
 router.get('/citas/:id_usuario', (req, res) => {
@@ -623,6 +646,7 @@ router.get('/citas_servicios_trabajadores', (req, res) => {
   });
 });
 
+
 //STORE
 router.post('/citas_servicios_trabajadores', (req, res) => {
   const nuevoRegistro = req.body;
@@ -757,6 +781,19 @@ router.delete('/galeria/:id', (req, res) => {
 // INDEX
 router.get('/servicios_trabajadores', (req, res) => {
   connection.query('SELECT servicios.servicio, usuarios.nombre, usuarios.app, usuarios.apm FROM servicios_trabajadores JOIN servicios ON servicios_trabajadores.id_servicio = servicios.id JOIN usuarios ON servicios_trabajadores.id_usuario = usuarios.id', (err, results) => {
+    if (err) {
+      console.error('Error al obtener registros:', err);
+      res.status(500).json({ error: 'Error al obtener registros' });
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// TRABAJADORES
+router.get('/trabajador_serv/:id_servicio', (req, res) => {
+  const id_servicio = req.params.id_servicio;
+  connection.query('SELECT servicios_trabajadores.id_usuario,usuarios.nombre, usuarios.app, usuarios.apm FROM servicios_trabajadores JOIN usuarios ON servicios_trabajadores.id_usuario = usuarios.id WHERE id_servicio = ?', id_servicio, (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });

@@ -12,12 +12,12 @@ import Logo from './../assets/logo.JPG';
 import { useNavigate } from 'react-router-dom'; 
 import { UserContext } from '../context/UserContext';
 
-const MenuInicio = ({ usuario = {} }) => {
+const MenuInicio = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
-  const {logoutUser } = useContext(UserContext);
+  const {logoutUser, user } = useContext(UserContext);
   const navigate = useNavigate(); 
 
   const handleLogout = () => {
@@ -37,16 +37,20 @@ const MenuInicio = ({ usuario = {} }) => {
         <Button color="inherit" component={Link} to="/servicio">
           Servicios
         </Button>
-        <Button color="inherit" component={Link} to="/galeria">
+        {/* <Button color="inherit" component={Link} to="/galeria">
           Galeria
-        </Button>
+        </Button> */}
 
         
         <Typography variant="body1" sx={{ marginRight: 2 }}>
-          {usuario.nombre} 
+         
         </Typography>
         <IconButton onClick={handleMenuOpen} color="inherit">
-          <Avatar alt={usuario.nombre} src={usuario.avatarUrl} />
+        <Avatar 
+            alt={user.nombre} 
+            src={user.foto || 'https://via.placeholder.com/40'} // Usar foto del usuario o una por defecto
+            sx={{ width: 40, height: 40 }} 
+          />
         </IconButton>
         <Menu
           anchorEl={anchorEl}

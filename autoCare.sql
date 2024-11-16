@@ -445,12 +445,14 @@ CREATE TABLE
     `citas_servicios_trabajadores` (
         `id` int (11) NOT NULL AUTO_INCREMENT,
         `id_cita` int (11) DEFAULT NULL,
-        `id_servicio_u` int (11) DEFAULT NULL,
+        `id_servicio` int (11) DEFAULT NULL,
+        `id_usuario` int (11) DEFAULT NULL,
         `created_at` datetime DEFAULT NULL,
         `updated_at` datetime DEFAULT NULL,
         PRIMARY KEY (`id`),
         FOREIGN KEY (id_cita) REFERENCES citas (id),
-        FOREIGN KEY (id_servicio_u) REFERENCES servicios_trabajadores (id)
+        FOREIGN KEY (id_servicio) REFERENCES servicios (id)
+        FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
     ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COLLATE = utf8_general_ci;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
