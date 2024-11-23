@@ -31,6 +31,10 @@ function Login() {
     try {
       const response = await axios.post('http://localhost:3001/api/login', form);
       const { token, user } = response.data;
+      if (user.contrasena) {
+        delete user.contrasena;
+        delete user.telefono;
+      }
       localStorage.setItem('token', token);
       loginUser(user);
       console.log('Login exitoso');
@@ -54,13 +58,13 @@ function Login() {
   };
 
   return (
-    <Card sx={{ maxWidth: 400, margin: 'auto', mt: 5, padding: 2, marginBottom: '20px' }}>
- <img src={InicioSesion} alt="" width="400" height="100" />
+    <Card sx={{boxShadow: '0px 10px 25px rgba(0, 0, 0, 0.9)',borderRadius: '24px', maxWidth: 380, margin: 'auto', mt: 5, padding: 2, marginBottom: '20px',  }}>
+ <img src={InicioSesion} alt="" width="350" height="100" />
       <form onSubmit={handleSubmit}>
         <CardContent>
           <TextField 
             name="correo" 
-            label="Correo electrónico" 
+            placeholder="Correo electrónico"
             value={form.correo} 
             onChange={handleChange} 
             fullWidth 
@@ -72,7 +76,7 @@ function Login() {
           />
           <TextField 
             name="contrasena" 
-            label="Contraseña" 
+           placeholder="Contraseña"
             type="password" 
             value={form.contrasena} 
             onChange={handleChange} 
@@ -85,8 +89,8 @@ function Login() {
           />
              {message && <Typography color="error">{message}</Typography>}
         </CardContent>
-        <CardActions>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
+        <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button type="submit" variant="contained" color="primary"  sx={{justifyContent: 'center', boxShadow: 5,borderRadius: '24px',maxWidth: 200,}}>
             Iniciar sesión
           </Button>
         </CardActions>

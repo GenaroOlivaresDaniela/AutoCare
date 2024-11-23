@@ -137,10 +137,10 @@ function AgendarCita() {
       }}
     >
       <Card
-        sx={{
+        sx={{boxShadow: '0px 10px 25px rgba(0, 0, 0, 0.9)',borderRadius: '24px',
           width: 300,
           padding: 4,
-          boxShadow: 3,
+         
         }}
       >
         <CardContent>
@@ -190,7 +190,7 @@ function AgendarCita() {
 
             <TextField
               fullWidth
-              label="Fecha"
+              placeholder="Fecha"
               type="date"
               margin="normal"
               value={form.fecha}
@@ -201,7 +201,7 @@ function AgendarCita() {
             />
             <TextField
               fullWidth
-              label="Hora"
+              placeholder="Hora"
               type="time"
               margin="normal"
               value={form.hora}
@@ -211,10 +211,10 @@ function AgendarCita() {
               helperText={!!error && !form.hora ? 'El campo es requerido' : ''}
             />
             <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-              <Button variant="contained" sx={{ backgroundColor: "red" }} type="button" onClick={() => navigate('/inicio')}>
+              <Button variant="contained"  sx={{ backgroundColor: "red",  boxShadow: 5,borderRadius: '10px'}} type="button" onClick={() => navigate('/inicio')}>
                 Cancelar
               </Button>
-              <Button variant="contained" sx={{ backgroundColor: "#1976D2" }} type="submit">
+              <Button variant="contained" sx={{ backgroundColor: "#1976D2", boxShadow: 5,borderRadius: '10px' }} type="submit">
                 Agendar
               </Button>
             </Box>

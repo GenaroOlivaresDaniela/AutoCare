@@ -7,7 +7,7 @@ import AgendarCitas from './pages/AgendarCitas';
 import MenuInicio from './components/MenuInicio';
 import Menu from './components/Menu';
 import Footer from './components/Footer';
-import Background from './assets/Fondoo.jpg';
+import Background from './assets/Fondo.jpg'; 
 import Servicios from './pages/Servicios';
 import Inicio from './pages/Inicio';
 import Vehiculos from './pages/Vehiculos';

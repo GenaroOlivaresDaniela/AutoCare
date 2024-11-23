@@ -206,7 +206,7 @@ export default function CustomTable() {
             
 
             <Typography variant="h3" align="center" gutterBottom sx={{ flexGrow: 1, color:'black'}}>
-                Mis citas pendientes
+                MIS CITAS 
             </Typography>
             <TableContainer component={Paper} sx={{ backgroundColor: '#2D2D44', display: 'flex' }}>
                 <Table>
@@ -214,7 +214,7 @@ export default function CustomTable() {
                         <TableRow>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Fecha</TableCell>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Hora</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Servicio</TableCell>
+                            {/* <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Servicio</TableCell> */}
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}></TableCell>
                         </TableRow>
                     </TableHead>
@@ -231,7 +231,7 @@ export default function CustomTable() {
                             >
                                 <TableCell sx={{ textAlign: 'center' }}>{formatoFecha(row.fecha)}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }}>{formatoHora(row.hora)}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }}>{row.servicio}</TableCell>
+                                {/* <TableCell sx={{ textAlign: 'center' }}>{row.servicio}</TableCell> */}
                                 <TableCell sx={{ textAlign: 'center' }}>
                                     <IconButton onClick={() => handleEdit(row)} color="primary">
                                         <EditIcon />

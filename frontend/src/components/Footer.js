@@ -3,7 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 // import Typography from '@mui/material/Typography';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-// import InstagramIcon from '@mui/icons-material/Instagram';
+import InstagramIcon from '@mui/icons-material/Instagram';
 // import PhoneIcon from '@mui/icons-material/Phone';
 import { IconButton } from '@mui/material';
 
@@ -11,16 +11,24 @@ const Footer = () => {
   return (
     <AppBar 
       position="static" 
-      sx={{top: 'auto',bottom: 0, backgroundColor: 'gray', color: 'black', display: 'flex' }} 
+      sx={{top: 'auto',bottom: 0, backgroundColor: '#2e313e', color: 'black', display: 'flex' }} 
     >
       <Toolbar sx={{ justifyContent: 'center'}}>
       <IconButton 
           href="https://wa.me/7228501290" 
           target="_blank" 
           rel="noopener noreferrer"
-          sx={{ color: 'green', marginRight: '10px', bottom: 0}} 
+          sx={{ color: 'white', marginRight: '100px', bottom: 0}} 
         >
          <WhatsAppIcon /> 
+        </IconButton>
+      <IconButton 
+          href="https://www.instagram.com/x.1angeeel?igsh=aXRyOWgyam5rMmxy " 
+          target="_blank" 
+          rel="noopener noreferrer"
+          sx={{ color: 'white', marginRight: '100px', bottom: 0}} 
+        >
+         <InstagramIcon /> 
         </IconButton>
         {/* <Typography variant="body1" sx={{ flexGrow: 1, textAlign: 'center' }}>
           Contacto: +1 (555) 123-4567 | +1 (555) 987-6543

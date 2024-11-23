@@ -36,13 +36,13 @@ function Register() {
   };
 
   return (
-    <Card sx={{ maxWidth: 400, margin: 'auto', mt: 5, padding: 2, marginBottom: '20px' }}>
+    <Card sx={{boxShadow: '0px 10px 25px rgba(0, 0, 0, 0.9)',borderRadius: '24px', maxWidth: 400, margin: 'auto', mt: 5, padding: 2, marginBottom: '20px' }}>
          <img src={Registro} alt="" width="400" height="100" />
     <form onSubmit={handleSubmit}>
     <CardContent>
       <TextField 
       name="nombre" 
-      label="Nombre" 
+      placeholder="Nombre" 
       value={form.nombre} 
       onChange={handleChange} 
       fullWidth 
@@ -54,7 +54,7 @@ function Register() {
       
       <TextField 
       name="app" 
-      label="Apellido Paterno" 
+      placeholder="Apellido Paterno" 
       value={form.app} 
       onChange={handleChange} 
       fullWidth 
@@ -66,7 +66,7 @@ function Register() {
       
       <TextField 
       name="apm" 
-      label="Apellido Materno" 
+      placeholder="Apellido Materno" 
       value={form.apm} 
       onChange={handleChange} 
       fullWidth 
@@ -78,7 +78,7 @@ function Register() {
       
       <TextField 
       name="telefono" 
-      label="Teléfono" 
+      placeholder="Teléfono" 
       type="numeric"
       value={form.telefono} 
       onChange={handleChange} 
@@ -91,7 +91,7 @@ function Register() {
 
       <TextField 
       name="correo" 
-      label="Correo electrónico" 
+      placeholder="Correo electrónico" 
       value={form.correo} 
       onChange={handleChange} 
       fullWidth 
@@ -103,7 +103,7 @@ function Register() {
 
       <TextField 
       name="contrasena" 
-      label="Contraseña" 
+      placeholder="Contraseña" 
       type="password" 
       value={form.contrasena} 
       onChange={handleChange} 
@@ -115,8 +115,8 @@ function Register() {
       />
  </CardContent>
 
-        <CardActions>
-          <Button type="submit" variant="contained" color="primary" fullWidth>
+        <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Button type="submit" variant="contained" color="primary" sx={{ boxShadow: 5,borderRadius: '24px',maxWidth: 300,}}>
             Registrarse
           </Button>
         </CardActions>

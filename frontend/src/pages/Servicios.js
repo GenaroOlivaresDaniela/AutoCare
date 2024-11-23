@@ -25,11 +25,7 @@ function Servicios() {
                         description={card.descripcion} 
                         image="https://www.serpresur.com/wp-content/uploads/2023/06/serpresur-riesgos-mas-comunes-en-un-taller-mecanico-2-scaled.jpg" 
                     />
-                    <ServiciosCard 
-                        title={card.servicio} 
-                        description={card.descripcion} 
-                        image="https://www.serpresur.com/wp-content/uploads/2023/06/serpresur-riesgos-mas-comunes-en-un-taller-mecanico-2-scaled.jpg" 
-                    />
+                  
                 </Grid>
             ))}
         </Grid>
