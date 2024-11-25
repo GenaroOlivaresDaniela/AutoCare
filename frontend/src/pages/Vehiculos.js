@@ -70,7 +70,7 @@ function Vehiculos() {
         sx={{
           width: 500,
           padding: 4,
-          boxShadow: 3,
+           boxShadow: '0px 10px 25px rgba(0, 0, 0, 0.9)',borderRadius: '24px',
         }}
       >
         <Box
@@ -88,7 +88,7 @@ function Vehiculos() {
               <Grid item xs={12} sm={6}>
                 <TextField 
                   fullWidth
-                  label="Modelo"
+                  placeholder="Modelo"
                   type="text"
                   margin="normal"
                   value={modelo}
@@ -101,7 +101,7 @@ function Vehiculos() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Marca"
+                  placeholder="Marca"
                   type="text"
                   margin="normal"
                   value={marca}
@@ -114,7 +114,7 @@ function Vehiculos() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Número de Placa"
+                  placeholder="Número de Placa"
                   type="text"
                   margin="normal"
                   value={no_placa}
@@ -127,7 +127,7 @@ function Vehiculos() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Número de Serie"
+                  placeholder="Número de Serie"
                   type="text"
                   margin="normal"
                   value={no_serie}
@@ -140,7 +140,7 @@ function Vehiculos() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Año"
+                  placeholder="Año"
                   type="text"
                   margin="normal"
                   value={ano}
@@ -153,10 +153,10 @@ function Vehiculos() {
             </Grid>
 
             <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-              <Button variant="contained" sx={{ backgroundColor: "red" }} type="button" onClick={() => navigate('/inicio')}>
+            <Button variant="contained"  sx={{ backgroundColor: "red",  boxShadow: 5,borderRadius: '10px'}} type="button" onClick={() => navigate('/inicio')}>
                 Cancelar
               </Button>
-              <Button variant="contained" sx={{ backgroundColor: "#1976D2" }} type="submit">
+              <Button variant="contained" sx={{ backgroundColor: "#1976D2", boxShadow: 5,borderRadius: '10px' }} type="submit">
                 Agendar
               </Button>
             </Box>

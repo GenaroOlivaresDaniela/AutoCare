@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Table, TableBody, TableCell,Typography, TableContainer, Snackbar, Alert, TableHead, TableRow, Paper, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, Snackbar, Alert, TableHead, TableRow, Paper, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../context/UserContext';
+import Citas from './../assets/citas.jpg';
+import EditarCitas from './../assets/editar_citas.jpg';
 
 export default function CustomTable() {
     const [rows, setCardsData] = useState([]);
@@ -137,15 +139,20 @@ export default function CustomTable() {
 
             <Dialog open={editModalOpen} onClose={handleCloseEditModal}sx={{
         '& .MuiDialog-paper': {
-            width: '300px',  
+            width: '350px',  
             maxWidth: '90%',  
-            height: 'auto',  
+            height: '350px',  
+            boxShadow: '0px 10px 25px rgba(0, 0, 0, 0.9)',borderRadius: '24px',
         }
     }}>
-                <DialogTitle sx={{textAlign: 'center', marginBottom: '15px'}}>Editar Cita</DialogTitle>
+                  <Box sx={{ display: 'flex',justifyContent: 'center', alignItems: 'center',
+          }}
+        >
+          <img src={EditarCitas} alt="" width="300" height="100" />
+        </Box>
                 <DialogContent >
                     <TextField
-                        label="Fecha"
+                        placeholder="Fecha"
                         type="date"
                         fullWidth
                         value={editableRow?.fecha?.split('T')[0] || ''}
@@ -153,7 +160,7 @@ export default function CustomTable() {
                         sx={{ marginBottom: 2, marginTop: '10px' }}
                     />
                     <TextField
-                        label="Hora"
+                        placeholder="Hora"
                         type="time"
                         fullWidth
                         value={editableRow?.hora || ''}
@@ -180,10 +187,11 @@ export default function CustomTable() {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseDeleteModal} sx={{ backgroundColor: "#1976D2" }} variant="contained">
+                    
+                    <Button onClick={handleCloseDeleteModal} sx={{display: "flex", justifyContent:'center', backgroundColor: "#1976D2", boxShadow: 5,borderRadius: '10px' }} variant="contained">
                         Cancelar
                     </Button>
-                    <Button onClick={handleDelete} sx={{ backgroundColor: "red" }} variant="contained">
+                    <Button onClick={handleDelete} sx={{display: "flex", justifyContent:'center',backgroundColor: "red" , boxShadow: 5,borderRadius: '10px'}} variant="contained">
                         Eliminar
                     </Button>
                 </DialogActions>
@@ -205,9 +213,16 @@ export default function CustomTable() {
 
             
 
-            <Typography variant="h3" align="center" gutterBottom sx={{ flexGrow: 1, color:'black'}}>
-                MIS CITAS 
-            </Typography>
+            <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <img src={Citas} alt="" width="480" height="180" />
+        </Box>
+          
             <TableContainer component={Paper} sx={{ backgroundColor: '#2D2D44', display: 'flex' }}>
                 <Table>
                     <TableHead>
