@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import InicioSesion from './Auth/login';
 import Register from './Auth/register';
+import Mensaje from './Auth/mensaje';
 import Principal from './pages/principal';
 import AgendarCitas from './pages/AgendarCitas';
 import MenuInicio from './components/MenuInicio';
@@ -41,6 +42,7 @@ const RouterPagina = () => {
       {!isDashboard && (isAuthenticated ? <MenuInicio /> : <Menu />)}
         <Routes>
           <Route path="/register" element={<Register />} />
+          <Route path="/reg" element={<Mensaje />} />
           <Route path="/login" element={<InicioSesion />} />
           <Route path="/" element={<Principal />} />
 

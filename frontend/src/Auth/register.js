@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Card, CardContent, Snackbar, Alert, CardActions } from '@mui/material';
 import axios from 'axios';
 import Registro from './../assets/registro.jpg';
+import { useNavigate } from 'react-router-dom'; 
 
 function Register() {
   const [form, setForm] = useState({ 
@@ -17,7 +18,7 @@ function Register() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-
+  const navigate = useNavigate(); 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'foto') {
@@ -42,13 +43,16 @@ function Register() {
     try {
       const response = await axios.post('http://localhost:3001/api/register', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Importante para enviar archivos
+          'Content-Type': 'multipart/form-data', 
         },
       });
       console.log(response.data.message);
       setSnackbarMessage('Se guardó correctamente!');
       setSnackbarSeverity('success');
       setOpenSnackbar(true);
+      setTimeout(() => {
+          navigate('/reg');
+      }, 1000);
     } catch (error) {
       setError(error.response?.data?.message || 'Error en el registro');
     }
