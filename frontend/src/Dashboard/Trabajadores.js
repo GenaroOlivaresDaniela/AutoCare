@@ -15,7 +15,6 @@ export default function Trabajadores() {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -35,12 +34,17 @@ export default function Trabajadores() {
     };
 
     const handleEdit = (row) => {
-        setEditableRow(row);  
+        setEditableRow({ ...row });  // Copia los datos del trabajador a editar
         setEditModalOpen(true);   
     };
 
+    const handleOpenAdd = () => {
+        setEditableRow({ nombre: '', correo: '', telefono: '', contrasena: '' }); // Reset para agregar
+        setEditModalOpen(true);
+    };
+
     const handleCloseEditModal = () => {
-        setEditModalOpen(false);  
+        setEditModalOpen(false);
         setEditableRow(null);  
         setErrors({ contrasena: '' }); 
     };
@@ -60,30 +64,62 @@ export default function Trabajadores() {
     };
 
     const handleSaveEdit = async () => {
-        
         try {
-         
-            const response = await fetch(`http://localhost:3001/api/usuarios/${editableRow.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(editableRow),
-            });
+            let response;
 
-            if (response.ok) {
-                setCardsData((prevRows) => prevRows.map((row) => 
-                    row.id === editableRow.id ? editableRow : row
-                ));
-                setSnackbarMessage('Se edito correctamente!');
-                setSnackbarSeverity('success');
-                setOpenSnackbar(true);
-                handleCloseEditModal();
+            // Si existe un id, estamos editando, si no, estamos agregando
+            if (editableRow.id) {
+                // Edición
+                response = await fetch(`http://localhost:3001/api/usuarios/${editableRow.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(editableRow),
+                });
+                
+                if (response.ok) {
+                    setCardsData((prevRows) => prevRows.map((row) => 
+                        row.id === editableRow.id ? editableRow : row
+                    ));
+                    setSnackbarMessage('Se editó correctamente!');
+                    setSnackbarSeverity('success');
+                } else {
+                    console.error('Error al guardar los cambios');
+                    setSnackbarMessage('Error al editar');
+                    setSnackbarSeverity('error');
+                }
             } else {
-                console.error('Error al guardar los cambios');
+                // Agregar nuevo registro
+                response = await fetch(`http://localhost:3001/api/usuarios`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(editableRow),
+                });
+    
+                if (response.ok) {
+                    const newUser = await response.json();
+                    setCardsData((prevRows) => [...prevRows, newUser]); // Agregar el nuevo usuario
+                    setSnackbarMessage('Usuario agregado correctamente!');
+                    setSnackbarSeverity('success');
+                } else {
+                    console.error('Error al agregar el usuario');
+                    setSnackbarMessage('Error al agregar');
+                    setSnackbarSeverity('error');
+                }
             }
+    
+            // Mostrar snackbar y cerrar el modal
+            setOpenSnackbar(true);
+            handleCloseEditModal();
+    
         } catch (error) {
-            console.error('Error al realizar la solicitud de edición:', error);
+            console.error('Error al realizar la solicitud:', error);
+            setSnackbarMessage('Error en la solicitud');
+            setSnackbarSeverity('error');
+            setOpenSnackbar(true);
         }
     };
 
@@ -96,7 +132,6 @@ export default function Trabajadores() {
         setOpen(false); 
         setRowToDelete(null); 
     };
-
 
     const handleDelete = async () => {
         try {
@@ -120,24 +155,38 @@ export default function Trabajadores() {
     return (
         <Box sx={{ backgroundColor: 'white', padding: 4, width: 900, display: 'block', justifyContent: 'center', margin:0 }}>
 
-            <Dialog open={editModalOpen} onClose={handleCloseEditModal}sx={{
-        '& .MuiDialog-paper': {
-            width: '300px',  
-            maxWidth: '90%',  
-            height: 'auto',  
-        }
-    }}>
-                <DialogTitle sx={{textAlign: 'center', marginBottom: '15px'}}>Editar Trabajador</DialogTitle>
-                <DialogContent >
+            <Dialog open={editModalOpen} onClose={handleCloseEditModal} sx={{
+                '& .MuiDialog-paper': { width: '300px', maxWidth: '90%', height: 'auto' }
+            }}>
+                <DialogTitle sx={{ textAlign: 'center', marginBottom: '15px' }}>
+                    {editableRow?.id ? 'Editar Trabajador' : 'Agregar Trabajador'}
+                </DialogTitle>
+                <DialogContent>
                     <TextField
-                    fullWidth
+                        fullWidth
+                        label="Nombre"
+                        type="text"
+                        value={editableRow?.nombre || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, nombre: e.target.value })}
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <TextField
+                        fullWidth
+                        label="Correo"
+                        type="email"
+                        value={editableRow?.correo || ''}
+                        onChange={(e) => setEditableRow({ ...editableRow, correo: e.target.value })}
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <TextField
+                        fullWidth
                         label="Teléfono"
                         type="text"
                         value={editableRow?.telefono || ''}
                         onChange={(e) => setEditableRow({ ...editableRow, telefono: e.target.value })}
-                        sx={{ marginBottom: 2, marginTop: '10px' }}
+                        sx={{ marginBottom: 2 }}
                     />
-                     <TextField
+                    <TextField
                         label="Contraseña"
                         type="password"
                         fullWidth
@@ -147,7 +196,6 @@ export default function Trabajadores() {
                         helperText={errors.contrasena}
                         sx={{ marginBottom: 2 }}
                     />
-                   
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleCloseEditModal} sx={{ backgroundColor: 'red' }} variant="contained">
@@ -177,36 +225,31 @@ export default function Trabajadores() {
             </Dialog>
 
             <Grid textAlign="right">
-                    <IconButton >
-                        <Avatar sx={{ width: 50, height: 50, bgcolor: '#1F3A5F' }}>
-                            <AddIcon sx={{ fontSize: 40, color: 'white'}} />
-                        </Avatar>
-                    </IconButton>
-                </Grid>
-            <TableContainer component={Paper} sx={{ backgroundColor: '#2D2D44', margin:0, pagging:0}}>
+                <IconButton onClick={handleOpenAdd}>
+                    <Avatar sx={{ width: 50, height: 50, bgcolor: '#1F3A5F' }}>
+                        <AddIcon sx={{ fontSize: 40, color: 'white' }} />
+                    </Avatar>
+                </IconButton>
+            </Grid>
+
+            <TableContainer component={Paper} sx={{ backgroundColor: '#2D2D44', margin:0 }}>
                 <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Foto</TableCell>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Nombre</TableCell>
-                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>correo</TableCell>
+                            <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Correo</TableCell>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}>Teléfono</TableCell>
                             <TableCell sx={{ color: '#fff', textAlign: 'center' }}></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {rows.map((row, index) => (
-                            <TableRow
-                                key={index}
-                                sx={{
-                                    '&:last-child td, &:last-child th': { border: 0 },
-                                    backgroundColor: '#fff',
-                                    borderRadius: '8px',
-                                    marginY: 1,
-                                }}>
-
-                                <TableCell sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <Avatar></Avatar></TableCell>
-                                <TableCell sx={{ textAlign: 'center' }}>{row.nombre + ' ' + row.app + ' ' + row.apm}</TableCell>
+                            <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 }, backgroundColor: '#fff' }}>
+                                <TableCell sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                    <Avatar></Avatar>
+                                </TableCell>
+                                <TableCell sx={{ textAlign: 'center' }}>{row.nombre}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }}>{row.correo}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }}>{row.telefono}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }}>
@@ -222,16 +265,12 @@ export default function Trabajadores() {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Snackbar 
-                open={openSnackbar} 
-                autoHideDuration={2000} 
-                onClose={() => setOpenSnackbar(false)} 
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }} >
+
+            <Snackbar open={openSnackbar} autoHideDuration={2000} onClose={() => setOpenSnackbar(false)} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                 <Alert onClose={() => setOpenSnackbar(false)} variant="filled" severity={snackbarSeverity} sx={{ width: '100%' }}>
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
         </Box>
-       
     );
 }

@@ -135,7 +135,7 @@ export default function CustomTable() {
     };
 
     return (
-        <Box sx={{ backgroundColor: 'white', padding: 4, width: 900, display: 'block', justifyContent: 'center', marginTop: '30px', marginRight: '25px', marginLeft: '25px', marginBottom: '20px' }}>
+        <Box sx={{ backgroundColor: 'white', padding: 4, width: '80%', maxWidth: '900px',margin: '30px auto', display: 'block', justifyContent: 'center', marginBottom: '20px', }}>
 
             <Dialog open={editModalOpen} onClose={handleCloseEditModal}sx={{
         '& .MuiDialog-paper': {
@@ -145,9 +145,8 @@ export default function CustomTable() {
             boxShadow: '0px 10px 25px rgba(0, 0, 0, 0.9)',borderRadius: '24px',
         }
     }}>
-                  <Box sx={{ display: 'flex',justifyContent: 'center', alignItems: 'center',
-          }}
-        >
+                  <Box sx={{ display: 'flex',justifyContent: 'center', alignItems: 'center',marginTop:'10px'
+          }}>
           <img src={EditarCitas} alt="" width="300" height="100" />
         </Box>
                 <DialogContent >
@@ -220,7 +219,7 @@ export default function CustomTable() {
             alignItems: 'center',
           }}
         >
-          <img src={Citas} alt="" width="480" height="180" />
+          <img src={Citas} alt="" width="400" height="100" />
         </Box>
           
             <TableContainer component={Paper} sx={{ backgroundColor: '#2D2D44', display: 'flex' }}>

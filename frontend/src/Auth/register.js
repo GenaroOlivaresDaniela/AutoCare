@@ -51,7 +51,7 @@ function Register() {
       setSnackbarSeverity('success');
       setOpenSnackbar(true);
       setTimeout(() => {
-          navigate('/reg');
+          navigate('/login');
       }, 1000);
     } catch (error) {
       setError(error.response?.data?.message || 'Error en el registro');
