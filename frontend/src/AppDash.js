@@ -26,7 +26,7 @@ const closedDrawerWidth = 60;
 const AppDash = () => {
   const [open, setOpen] = useState(true);  
 
-  const toggleDrawer = () => setOpen(!open);  // Toggle para abrir y cerrar el menú
+  const toggleDrawer = () => setOpen(!open); 
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -53,7 +53,7 @@ const AppDash = () => {
             aria-label="open drawer"
             edge="start"
             onClick={toggleDrawer}
-            sx={{ mr: 2 }}  // Mostrar solo en pantallas pequeñas
+            sx={{ mr: 2 }}  
           >
             <MenuIcon />
           </IconButton>
@@ -67,7 +67,6 @@ const AppDash = () => {
   </Typography>
         <Avatar 
         
-       //      alt={user.nombre} 
             src={ ''} 
             sx={{ width: 40, height: 40, }} 
           /> 
@@ -77,7 +76,6 @@ const AppDash = () => {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-          {/* <MenuItem onClick={handleMenuClose}>Perfil</MenuItem> */}
           <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
         </Menu>
         </Toolbar>
