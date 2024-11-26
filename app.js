@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const cors = require('cors');
@@ -20,6 +21,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type'], 
   credentials: true 
 }));
+
+app.use('/imagenes/usuarios', express.static(path.join(__dirname, 'imagenes', 'usuarios')));
 
 // Rutas de la API
 app.use('/api', routes);
