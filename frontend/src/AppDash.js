@@ -1,6 +1,6 @@
 import React, { useState, useContext  } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { AppBar, Box, CssBaseline, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Divider } from '@mui/material';
+import {Button, AppBar, Box, CssBaseline, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Trabajadores from './Dashboard/Trabajadores';
 import Clientes from './Dashboard/Clientes';
@@ -20,8 +20,8 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-const drawerWidth = 240;
-const closedDrawerWidth = 60;
+const drawerWidth = 250;
+const closedDrawerWidth = 0;
 
 const AppDash = () => {
   const [open, setOpen] = useState(true);  
@@ -46,7 +46,7 @@ const AppDash = () => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
 
-      <AppBar position="fixed" sx={{ width: `calc(100% - ${open ? drawerWidth : closedDrawerWidth}px)`, ml: `${open ? drawerWidth : closedDrawerWidth}px` }}>
+      <AppBar position="fixed" sx={{boxShadow: '0px 10px 25px rgba(0, 0, 0, 1)', width: `calc(100% - ${open ? drawerWidth : closedDrawerWidth}px)`, ml: `${open ? drawerWidth : closedDrawerWidth}px` }}>
         <Toolbar x={{ flexGrow: 1, top:'auto' }}  component="div" color="inherit">
           <IconButton
             color="inherit"
@@ -89,8 +89,10 @@ const AppDash = () => {
               width: open ? drawerWidth : closedDrawerWidth,
                  boxSizing: 'border-box',
                  transition: 'width 0.3s',
-                 bgcolor:'#cee8ff'
+                 bgcolor:'#0b4462',
+                 boxShadow: '0px 10px 25px rgba(0, 0, 0, 1)',
               },
+            
        }}
         variant="persistent"
         anchor="left"
@@ -106,31 +108,47 @@ const AppDash = () => {
             </ListItem> */}
 
                 <ListItem button component={Link} to="/dashboard/citas">
+                <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
                   <ListItemText primary="Citas" />
+                  </Button>
                 </ListItem>
             <ListItem button component={Link} to="/dashboard/citas_serv_usu">
+           <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
               <ListItemText primary="Citas Servicio Usuario" />
+              </Button>
             </ListItem>
             <ListItem button component={Link} to="/dashboard/clientes">
+            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
               <ListItemText primary="Clientes" />
+              </Button>
             </ListItem>
             <ListItem button component={Link} to="/dashboard/perfiles">
-              <ListItemText primary="Perfiles" />
+            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+          <ListItemText primary="Perfiles" />
+        </Button>
             </ListItem>
             {/* <ListItem button component={Link} to="/dashboard/reportes">
               <ListItemText primary="Reportes" />
             </ListItem> */}
                 <ListItem button component={Link} to="/dashboard/servicios">
+                <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
                   <ListItemText primary="Servicios" />
+                  </Button>
                 </ListItem>
             <ListItem button component={Link} to="/dashboard/servicios_trabajadores">
+            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
               <ListItemText primary="Servicios Trabajadores" />
+              </Button>
             </ListItem>
                 <ListItem button component={Link} to="/dashboard/trabajadores">
+                <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
                   <ListItemText primary="Trabajadores" />
+                  </Button>
                 </ListItem>
             <ListItem button component={Link} to="/dashboard/vehiculos">
+            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
               <ListItemText primary="Vehículos" />
+              </Button>
             </ListItem>
           </List>
         </div>

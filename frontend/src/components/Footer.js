@@ -1,10 +1,10 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-// import Typography from '@mui/material/Typography';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import InstagramIcon from '@mui/icons-material/Instagram';
-// import PhoneIcon from '@mui/icons-material/Phone';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import { IconButton } from '@mui/material';
 
 const Footer = () => {
@@ -30,9 +30,22 @@ const Footer = () => {
         >
          <InstagramIcon /> 
         </IconButton>
-        {/* <Typography variant="body1" sx={{ flexGrow: 1, textAlign: 'center' }}>
-          Contacto: +1 (555) 123-4567 | +1 (555) 987-6543
-        </Typography> */}
+        <IconButton 
+          href="https://www.facebook.com/share/uzLzEDK5VTrEjn2d/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          sx={{ color: 'black', marginRight: '100px'}} 
+        >
+          <FacebookIcon />
+        </IconButton>
+        <IconButton 
+          href="https://twitter.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          sx={{ color: 'black'}} 
+        >
+          <TwitterIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
   );
