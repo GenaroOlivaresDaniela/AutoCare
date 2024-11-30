@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import InicioSesion from './Auth/login';
 import Register from './Auth/register';
-import Mensaje from './Auth/mensaje';
 import Principal from './pages/principal';
 import AgendarCitas from './pages/AgendarCitas';
 import MenuInicio from './components/MenuInicio';
@@ -13,6 +12,7 @@ import Servicios from './pages/Servicios';
 import Inicio from './pages/Inicio';
 import Vehiculos from './pages/Vehiculos';
 import MisCitas from './pages/MisCitas';
+import MisAutos from './pages/MisAutos';
 import { Box } from '@mui/material';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -42,11 +42,11 @@ const RouterPagina = () => {
       {!isDashboard && (isAuthenticated ? <MenuInicio /> : <Menu />)}
         <Routes>
           <Route path="/register" element={<Register />} />
-          <Route path="/reg" element={<Mensaje />} />
           <Route path="/login" element={<InicioSesion />} />
           <Route path="/" element={<Principal />} />
 
           <Route path="/servicio" element={<Servicios/>} />
+          <Route path="/misAutos" element={<MisAutos/>} />
           <Route path="/inicio" element={<ProtectedRoute><Inicio/></ProtectedRoute>} />
           <Route path="/citasAgregar" element={<ProtectedRoute><AgendarCitas/></ProtectedRoute>} />
           <Route path="/vehiculo" element={<ProtectedRoute><Vehiculos /></ProtectedRoute>} />

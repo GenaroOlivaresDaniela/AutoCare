@@ -4,7 +4,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const cors = require('cors');
-
 app.use(bodyParser.json());
 
 // Middleware para configurar las cabeceras CORS
@@ -15,6 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.use(cors({
   origin: 'http://localhost:3000', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
@@ -23,6 +23,7 @@ app.use(cors({
 }));
 
 app.use('/imagenes/usuarios', express.static(path.join(__dirname, 'imagenes', 'usuarios')));
+app.use('/imagenes/vehiculos', express.static(path.join(__dirname, 'imagenes/vehiculos')));
 
 // Rutas de la API
 app.use('/api', routes);

@@ -12,4 +12,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-module.exports = upload;
+const storageVehiculos = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '../imagenes/vehiculos')); 
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname)); 
+  }
+});
+const uploadVehiculos = multer({ storage: storageVehiculos });
+
+module.exports = {upload,uploadVehiculos};

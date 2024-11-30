@@ -1,7 +1,7 @@
 const User = require('../Models/Usuario');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const upload = require('../middlewares/upload');
+const {upload} = require('../middlewares/upload');
 const path = require('path');
 
 
