@@ -27,16 +27,19 @@ const Inicio = () => {
     return (
         <div>
          
-            <Typography variant="h2" align="center" gutterBottom sx={{fontSize: '60px', fontWeight: 'bold', flexGrow: 1, marginTop: '50px', color:'black', boxShadow: '0px 10px 25px rgba(0, 0, 0, 1)'}}>
+            <Typography variant="h2" align="center" gutterBottom sx={{fontSize: '60px', fontWeight: 'bold', flexGrow: 1, marginTop: '30px', color:'black', boxShadow: '0px 10px 25px rgba(0, 0, 0, 1)'}}>
                 Mis Autos
             </Typography>
 
-            <Grid container spacing={4} sx={{marginTop: '30px'}}>
+            <Grid container spacing={4} sx={{marginTop: '20px'}}>
             {cardsData.map((card) => (
                 <Grid item xs={12} sm={6} key={card.id}>
                     <VehiculosCard 
-                        marca={card.marca} 
-                        modelo={card.modelo} 
+                        marca={'Marca: '+card.marca} 
+                        modelo={'Modelo: '+card.modelo} 
+                        no_placa={'Numero de Placas: '+card.no_placa} 
+                        no_serie={'Número de Serie: '+card.no_serie} 
+                        ano={'Año: '+card.ano} 
                         image={`${BaseUrl}${card.imagen}`}
                     />
                   
