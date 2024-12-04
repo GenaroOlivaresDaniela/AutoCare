@@ -477,6 +477,13 @@ router.put('/citas/:id', (req, res) => {
 //DELETE
 router.delete('/citas/:id', (req, res) => {
   const id = req.params.id;
+  connection.query('DELETE FROM citas_servicios_trabajadores WHERE id_cita = ?', [id], (err, results) => {
+    if (err) {
+      console.error('Error al eliminar registros relacionados:', err);
+      res.status(500).json({ error: 'Error al eliminar registros relacionados' });
+      return;
+    }
+
   connection.query('DELETE FROM citas WHERE id = ?', [id], (err, results) => {
     if (err) {
       console.error('Error al eliminar el registro:', err);
@@ -484,6 +491,7 @@ router.delete('/citas/:id', (req, res) => {
       return;
     }
     res.json({ message: 'Registro eliminado exitosamente' });
+  });
   });
 });
 
