@@ -39,7 +39,7 @@ export default function Trabajadores() {
     };
 
     const handleOpenAdd = () => {
-        setEditableRow({  telefono: '', contrasena: '' }); // Reset para agregar
+        setEditableRow({nombre:'',app:'',apm:'',correo:'',  telefono: '', contrasena: '' }); // Reset para agregar
         setEditModalOpen(true);
     };
 
@@ -66,7 +66,7 @@ export default function Trabajadores() {
     const handleSaveEdit = async () => {
         try {
             let response;
-
+            const payload = { ...editableRow, id_perfil: 3 };
             // Si existe un id, estamos editando, si no, estamos agregando
             if (editableRow.id) {
                 // Edición
@@ -75,12 +75,15 @@ export default function Trabajadores() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(editableRow),
+                    body: JSON.stringify({
+                        telefono: editableRow.telefono,
+                        contrasena: editableRow.contrasena,
+                    }),
                 });
                 
                 if (response.ok) {
                     setCardsData((prevRows) => prevRows.map((row) => 
-                        row.id === editableRow.id ? editableRow : row
+                        row.id === editableRow.id ? { ...row, ...editableRow } : row
                     ));
                     setSnackbarMessage('Se editó correctamente!');
                     setSnackbarSeverity('success');
@@ -96,7 +99,7 @@ export default function Trabajadores() {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(editableRow),
+                    body: JSON.stringify(payload),
                 });
     
                 if (response.ok) {
@@ -110,8 +113,6 @@ export default function Trabajadores() {
                     setSnackbarSeverity('error');
                 }
             }
-    
-            // Mostrar snackbar y cerrar el modal
             setOpenSnackbar(true);
             handleCloseEditModal();
     
@@ -162,18 +163,66 @@ export default function Trabajadores() {
                     {editableRow?.id ? 'Editar Trabajador' : 'Agregar Trabajador'}
                 </DialogTitle>
                 <DialogContent>
-                     <TextField
+                {!editableRow?.id && (
+                        <>
+                            <TextField
+                                fullWidth
+                                label="Nombre"
+                                value={editableRow?.nombre || ''}
+                                onChange={(e) =>
+                                    setEditableRow({ ...editableRow, nombre: e.target.value })
+                                }
+                                sx={{ marginBottom: 2 }}
+                            />
+                            <TextField
+                                fullWidth
+                                label="Apellido Paterno"
+                                value={editableRow?.app || ''}
+                                onChange={(e) =>
+                                    setEditableRow({
+                                        ...editableRow,
+                                        app: e.target.value,
+                                    })
+                                }
+                                sx={{ marginBottom: 2 }}
+                            />
+                            <TextField
+                                fullWidth
+                                label="Apellido Materno"
+                                value={editableRow?.apm || ''}
+                                onChange={(e) =>
+                                    setEditableRow({
+                                        ...editableRow,
+                                        apm: e.target.value,
+                                    })
+                                }
+                                sx={{ marginBottom: 2 }}
+                            />
+                        
+                            <TextField
+                                fullWidth
+                                label="Correo"
+                                value={editableRow?.correo || ''}
+                                onChange={(e) =>
+                                    setEditableRow({ ...editableRow, correo: e.target.value })
+                                }
+                                sx={{ marginBottom: 2 }}
+                            />
+                        </>
+                    )}
+                        <TextField
                         fullWidth
                         label="Teléfono"
-                        type="text"
                         value={editableRow?.telefono || ''}
-                        onChange={(e) => setEditableRow({ ...editableRow, telefono: e.target.value })}
+                        onChange={(e) =>
+                            setEditableRow({ ...editableRow, telefono: e.target.value })
+                        }
                         sx={{ marginBottom: 2 }}
                     />
                     <TextField
+                        fullWidth
                         label="Contraseña"
                         type="password"
-                        fullWidth
                         value={editableRow?.contrasena || ''}
                         onChange={handlePasswordChange}
                         error={Boolean(errors.contrasena)}
