@@ -89,7 +89,7 @@ const AppDash = () => {
               width: open ? drawerWidth : closedDrawerWidth,
                  boxSizing: 'border-box',
                  transition: 'width 0.3s',
-                 bgcolor:'#0b4462',
+                 bgcolor:'white',
                  boxShadow: '0px 10px 25px rgba(0, 0, 0, 1)',
               },
             
@@ -108,22 +108,22 @@ const AppDash = () => {
             </ListItem> */}
 
                 <ListItem button component={Link} to="/dashboard/citas">
-                <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+                <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
                   <ListItemText primary="Citas" />
                   </Button>
                 </ListItem>
             <ListItem button component={Link} to="/dashboard/citas_serv_usu">
-           <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+           <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
               <ListItemText primary="Citas Servicio Usuario" />
               </Button>
             </ListItem>
             <ListItem button component={Link} to="/dashboard/clientes">
-            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+            <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
               <ListItemText primary="Clientes" />
               </Button>
             </ListItem>
             <ListItem button component={Link} to="/dashboard/perfiles">
-            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+            <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
           <ListItemText primary="Perfiles" />
         </Button>
             </ListItem>
@@ -131,22 +131,22 @@ const AppDash = () => {
               <ListItemText primary="Reportes" />
             </ListItem> */}
                 <ListItem button component={Link} to="/dashboard/servicios">
-                <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+                <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
                   <ListItemText primary="Servicios" />
                   </Button>
                 </ListItem>
             <ListItem button component={Link} to="/dashboard/servicios_trabajadores">
-            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+            <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
               <ListItemText primary="Servicios Trabajadores" />
               </Button>
             </ListItem>
                 <ListItem button component={Link} to="/dashboard/trabajadores">
-                <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+                <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
                   <ListItemText primary="Trabajadores" />
                   </Button>
                 </ListItem>
             <ListItem button component={Link} to="/dashboard/vehiculos">
-            <Button fullWidth sx={{ textAlign: 'left', color:'white' }}>
+            <Button fullWidth sx={{ textAlign: 'left', color:'black' }}>
               <ListItemText primary="Vehículos" />
               </Button>
             </ListItem>
