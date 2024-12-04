@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, Grid, Avatar,Snackbar, Alert, TableCell, TableContainer, TableHead, TableRow, Paper, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
+import { Table, TableBody, Grid, Snackbar, Alert, TableCell, TableContainer, TableHead, TableRow, Paper, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
+// import AddIcon from '@mui/icons-material/Add';
 
 export default function Citas() {
     const [rows, setCardsData] = useState([]);
@@ -173,11 +173,11 @@ export default function Citas() {
                 </DialogActions>
             </Dialog>
             <Grid textAlign="right">
-                    <IconButton >
+                    {/* <IconButton >
                         <Avatar sx={{ width: 50, height: 50, bgcolor: '#1F3A5F' }}>
                             <AddIcon sx={{ fontSize: 40, color: 'white'}} />
                         </Avatar>
-                    </IconButton>
+                    </IconButton> */}
                 </Grid>
             <TableContainer component={Paper} sx={{ backgroundColor: '#2D2D44', display: 'flex' }}>
                 <Table>

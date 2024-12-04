@@ -39,7 +39,7 @@ export default function Trabajadores() {
     };
 
     const handleOpenAdd = () => {
-        setEditableRow({ nombre: '', correo: '', telefono: '', contrasena: '' }); // Reset para agregar
+        setEditableRow({  telefono: '', contrasena: '' }); // Reset para agregar
         setEditModalOpen(true);
     };
 
@@ -162,23 +162,7 @@ export default function Trabajadores() {
                     {editableRow?.id ? 'Editar Trabajador' : 'Agregar Trabajador'}
                 </DialogTitle>
                 <DialogContent>
-                    <TextField
-                        fullWidth
-                        label="Nombre"
-                        type="text"
-                        value={editableRow?.nombre || ''}
-                        onChange={(e) => setEditableRow({ ...editableRow, nombre: e.target.value })}
-                        sx={{ marginBottom: 2 }}
-                    />
-                    <TextField
-                        fullWidth
-                        label="Correo"
-                        type="email"
-                        value={editableRow?.correo || ''}
-                        onChange={(e) => setEditableRow({ ...editableRow, correo: e.target.value })}
-                        sx={{ marginBottom: 2 }}
-                    />
-                    <TextField
+                     <TextField
                         fullWidth
                         label="Teléfono"
                         type="text"
