@@ -12,6 +12,7 @@ function Vehiculos() {
   const [no_serie, setSerie] = useState(''); 
   const [ano, setAno] = useState(''); 
   const [marca, setMarca] = useState(''); 
+  const [imagen, setImagen] = useState(null);
   const [open, setOpen] = useState(false); 
   const [error, setError] = useState(''); 
   const navigate = useNavigate(); 
@@ -26,15 +27,18 @@ function Vehiculos() {
     }
 
     setError(''); 
+    const formData = new FormData();
+    formData.append('modelo', modelo);
+    formData.append('no_placa', no_placa);
+    formData.append('no_serie', no_serie);
+    formData.append('ano', ano);
+    formData.append('marca', marca);
+    formData.append('imagen', imagen);
+    formData.append('id_usuario', user.id);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/vehiculos', {
-        modelo,
-        no_placa,
-        no_serie,
-        ano,
-        marca,
-        id_usuario: user.id, 
+      const response = await axios.post('http://localhost:3001/api/vehiculos',formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log('Registro exitoso:', response.data);
       setOpen(true); 
@@ -149,6 +153,15 @@ function Vehiculos() {
                   error={!!error && !ano}
                   helperText={!!error && !ano ? 'El campo es requerido' : ''}
                 />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                 <input
+            type="file"
+            name="imagen"
+            accept="image/*"
+            onChange={(e) => setImagen(e.target.files[0])}
+            style={{ marginTop: '20px' }}
+          />
               </Grid>
             </Grid>
 

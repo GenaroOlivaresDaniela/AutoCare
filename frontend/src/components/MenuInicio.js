@@ -19,7 +19,6 @@ const MenuInicio = () => {
   const handleMenuClose = () => setAnchorEl(null);
   const {logoutUser, user } = useContext(UserContext);
   const navigate = useNavigate(); 
-
   const handleLogout = () => {
     logoutUser();
     navigate('/');
@@ -37,6 +36,9 @@ const MenuInicio = () => {
         <Button color="inherit" component={Link} to="/servicio">
           Servicios
         </Button>
+        <Button color="inherit" component={Link} to="/misAutos">
+          Mis Autos
+        </Button>
         {/* <Button color="inherit" component={Link} to="/galeria">
           Galeria
         </Button> */}
@@ -48,7 +50,7 @@ const MenuInicio = () => {
         <IconButton onClick={handleMenuOpen} color="inherit">
         <Avatar 
             alt={user.nombre} 
-            src={user.foto || 'https://via.placeholder.com/40'} // Usar foto del usuario o una por defecto
+            src={user?.foto || 'https://via.placeholder.com/40'} 
             sx={{ width: 40, height: 40 }} 
           />
         </IconButton>
@@ -57,7 +59,7 @@ const MenuInicio = () => {
           open={Boolean(anchorEl)}
           onClose={handleMenuClose}
         >
-          {/* <MenuItem onClick={handleMenuClose}>Perfil</MenuItem> */}
+        
           <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
         </Menu>
       </Toolbar>

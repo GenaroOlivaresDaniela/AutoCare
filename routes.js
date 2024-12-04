@@ -5,6 +5,7 @@ const connection = require('./db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const authController = require('./Controllers/authController');
+const {uploadVehiculos} = require('./middlewares/upload')
 
 /* *********************************************************************************** */
 
@@ -196,8 +197,11 @@ router.get('/vehiculos', (req, res) => {
 });
 
 //STORE
-router.post('/vehiculos', (req, res) => {
-  const nuevoRegistro = req.body;
+router.post('/vehiculos', uploadVehiculos.single('imagen'),(req, res) => {
+  const body = req.body;
+  const imagen = req.file ? req.file.filename : null;
+
+  const nuevoRegistro = { ...body, imagen };
   connection.query('INSERT INTO vehiculos SET ?', nuevoRegistro, (err, results) => {
     if (err) {
       console.error('Error al crear un nuevo registro:', err);
@@ -209,19 +213,15 @@ router.post('/vehiculos', (req, res) => {
 });
 
 //SHOW
-router.get('/vehiculos/:id', (req, res) => {
-  const id = req.params.id;
-  connection.query('SELECT * FROM vehiculos WHERE id = ?', id, (err, results) => {
+router.get('/vehiculos/:id_usuario', (req, res) => {
+  const id_usuario = req.params.id_usuario;
+  connection.query('SELECT * FROM vehiculos WHERE id_usuario = ?', id_usuario, (err, results) => {
     if (err) {
       console.error('Error al obtener el registro:', err);
       res.status(500).json({ error: 'Error al obtener el registro' });
       return;
     }
-    if (results.length === 0) {
-      res.status(404).json({ error: 'Registro no encontrado' });
-      return;
-    }
-    res.json(results[0]);
+    res.json(results);
   });
 });
 

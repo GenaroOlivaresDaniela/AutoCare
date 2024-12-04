@@ -8,6 +8,7 @@ import { UserContext } from '../context/UserContext';
 
 const Inicio = () => {
     const { user } = useContext(UserContext);
+  
     return (
         <div>
          
@@ -41,9 +42,14 @@ const Inicio = () => {
                             <ChatIcon sx={{ fontSize: 80, color: 'white' }} />
                         </Avatar>
                     </IconButton>
-                    <Typography variant="h6" sx={{fontSize: '22px', fontWeight: 'bold',color: 'black'}}>MIS CITAS</Typography>
+                    <Typography variant="h6" sx={{fontSize: '22px', fontWeight: 'bold',color: 'black', marginButton:'50px'}}>MIS CITAS</Typography>
                 </Grid>
             </Grid>
+
+        
+
+          
+
      
         </div>
     );
