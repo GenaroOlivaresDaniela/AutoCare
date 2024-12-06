@@ -18,7 +18,7 @@ export default function Trabajadores() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/trabajadores');
+                const response = await fetch('http://localhost:3002/api/trabajadores');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -70,7 +70,7 @@ export default function Trabajadores() {
             // Si existe un id, estamos editando, si no, estamos agregando
             if (editableRow.id) {
                 // Edición
-                response = await fetch(`http://localhost:3001/api/usuarios/${editableRow.id}`, {
+                response = await fetch(`http://localhost:3002/api/usuarios/${editableRow.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ export default function Trabajadores() {
                 }
             } else {
                 // Agregar nuevo registro
-                response = await fetch(`http://localhost:3001/api/usuarios`, {
+                response = await fetch(`http://localhost:3002/api/usuarios`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

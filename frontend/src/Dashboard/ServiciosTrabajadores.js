@@ -12,7 +12,7 @@ export default function ServiciosTrabajadores() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/servicios_trabajadores');
+                const response = await fetch('http://localhost:3002/api/servicios_trabajadores');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -35,7 +35,7 @@ export default function ServiciosTrabajadores() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/servicios_trabajadores/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/servicios_trabajadores/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 

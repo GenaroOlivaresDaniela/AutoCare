@@ -12,7 +12,7 @@ export default function Perfiles() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/perfiles');
+                const response = await fetch('http://localhost:3002/api/perfiles');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -35,7 +35,7 @@ export default function Perfiles() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/perfiles/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/perfiles/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 

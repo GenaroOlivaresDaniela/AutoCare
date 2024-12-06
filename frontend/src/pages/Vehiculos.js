@@ -37,7 +37,7 @@ function Vehiculos() {
     formData.append('id_usuario', user.id);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/vehiculos',formData, {
+      const response = await axios.post('http://localhost:3002/api/vehiculos',formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log('Registro exitoso:', response.data);

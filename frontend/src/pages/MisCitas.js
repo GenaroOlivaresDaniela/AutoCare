@@ -23,7 +23,7 @@ export default function CustomTable() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/api/citas/${id_usuario}`);
+                const response = await fetch(`http://localhost:3002/api/citas/${id_usuario}`);
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -66,7 +66,7 @@ export default function CustomTable() {
     const handleSaveEdit = async () => {
         try {
          
-            const response = await fetch(`http://localhost:3001/api/citas/${editableRow.id}`, {
+            const response = await fetch(`http://localhost:3002/api/citas/${editableRow.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export default function CustomTable() {
         }
 
         try {
-            const response = await fetch(`http://localhost:3001/api/citas/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/citas/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 

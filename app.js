@@ -29,7 +29,7 @@ app.use('/imagenes/vehiculos', express.static(path.join(__dirname, 'imagenes/veh
 app.use('/api', routes);
 
 // Puerto
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => {
   console.log(`Servidor API a la espera de consulta, por el puerto ${PORT}`);
 });

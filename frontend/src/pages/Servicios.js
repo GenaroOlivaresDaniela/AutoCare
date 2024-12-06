@@ -7,7 +7,7 @@ function Servicios() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('http://localhost:3001/api/servicios');
+            const response = await fetch('http://localhost:3002/api/servicios');
             const data = await response.json();
             setCardsData(data);
         };

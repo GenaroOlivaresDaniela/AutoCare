@@ -18,7 +18,7 @@ export default function Servicios() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/servicios');
+                const response = await fetch('http://localhost:3002/api/servicios');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -41,7 +41,7 @@ export default function Servicios() {
     const handleSaveEdit = async () => {
         try {
          
-            const response = await fetch(`http://localhost:3001/api/servicios/${editableRow.id}`, {
+            const response = await fetch(`http://localhost:3002/api/servicios/${editableRow.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ export default function Servicios() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/servicios/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/servicios/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 

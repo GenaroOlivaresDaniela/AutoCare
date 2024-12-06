@@ -29,7 +29,7 @@ function Login() {
   
       setError(''); 
     try {
-      const response = await axios.post('http://localhost:3001/api/login', form);
+      const response = await axios.post('http://localhost:3002/api/login', form);
       const { token, user } = response.data;
       if (user.contrasena) {
         delete user.contrasena;

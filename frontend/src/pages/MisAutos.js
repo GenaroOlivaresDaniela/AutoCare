@@ -8,11 +8,11 @@ const Inicio = () => {
     const [cardsData, setCardsData] = useState([]);
     const id_usuario = user.id;
     
-    const BaseUrl = 'http://localhost:3001/imagenes/vehiculos/'
+    const BaseUrl = 'http://localhost:3002/imagenes/vehiculos/'
     useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await fetch(`http://localhost:3001/api/vehiculos/${id_usuario}`);
+            const response = await fetch(`http://localhost:3002/api/vehiculos/${id_usuario}`);
             const data = await response.json();
            
             setCardsData(data);

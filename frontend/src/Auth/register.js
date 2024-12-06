@@ -41,7 +41,7 @@ function Register() {
       formData.append(key, form[key]);
     }
     try {
-      const response = await axios.post('http://localhost:3001/api/register', formData, {
+      const response = await axios.post('http://localhost:3002/api/register', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', 
         },

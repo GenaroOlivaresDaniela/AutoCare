@@ -17,7 +17,7 @@ export default function Citas() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/citas');
+                const response = await fetch('http://localhost:3002/api/citas');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -61,7 +61,7 @@ export default function Citas() {
         try {
             const { nombre, app, apm, servicio, ...citasData } = editableRow;
          
-            const response = await fetch(`http://localhost:3001/api/citas/${editableRow.id}`, {
+            const response = await fetch(`http://localhost:3002/api/citas/${editableRow.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export default function Citas() {
     const handleDelete = async () => {
         
         try {
-            const response = await fetch(`http://localhost:3001/api/citas/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/citas/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 

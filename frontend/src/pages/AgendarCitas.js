@@ -18,7 +18,7 @@ function AgendarCita() {
   useEffect(() => {
     const obtenerServicios = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/servicios');
+        const response = await axios.get('http://localhost:3002/api/servicios');
         setServicio(response.data); 
       } catch (error) {
         console.error('Error al obtener servicios:', error);
@@ -31,7 +31,7 @@ function AgendarCita() {
     const obtenerTrabajadores = async () => {
       if (form.id_servicio) {
         try {
-          const response = await axios.get(`http://localhost:3001/api/trabajador_serv/${form.id_servicio}`);
+          const response = await axios.get(`http://localhost:3002/api/trabajador_serv/${form.id_servicio}`);
           setTrabajadores(response.data);
         } catch (error) {
           console.error('Error al obtener trabajadores:', error);
@@ -94,14 +94,14 @@ function AgendarCita() {
     }
 
     try {
-      const responseCita = await axios.post('http://localhost:3001/api/citas', {
+      const responseCita = await axios.post('http://localhost:3002/api/citas', {
         id_usuario: user.id,
         fecha,
         hora,
       });
       const idCita = responseCita.data.id;
 
-      await axios.post('http://localhost:3001/api/citas_servicios_trabajadores', {
+      await axios.post('http://localhost:3002/api/citas_servicios_trabajadores', {
         id_cita: idCita,
         id_trabajador,
         id_servicio,

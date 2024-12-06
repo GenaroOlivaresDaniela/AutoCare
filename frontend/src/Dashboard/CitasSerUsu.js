@@ -24,7 +24,7 @@ export default function CitasSerUsu() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/citas_servicios_trabajadores');
+                const response = await fetch('http://localhost:3002/api/citas_servicios_trabajadores');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -47,7 +47,7 @@ export default function CitasSerUsu() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/citas_servicios_trabajadores/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/citas_servicios_trabajadores/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 

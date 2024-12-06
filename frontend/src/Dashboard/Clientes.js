@@ -19,7 +19,7 @@ export default function Clientes() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/clientes');
+                const response = await fetch('http://localhost:3002/api/clientes');
                 const data = await response.json();
                 setCardsData(data);
             } catch (error) {
@@ -63,7 +63,7 @@ export default function Clientes() {
         
         try {
          
-            const response = await fetch(`http://localhost:3001/api/usuarios/${editableRow.id}`, {
+            const response = await fetch(`http://localhost:3002/api/usuarios/${editableRow.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export default function Clientes() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/usuarios/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/usuarios/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 

@@ -18,7 +18,7 @@ export default function Vehiculos() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/api/vehiculos');
+                const response = await fetch('http://localhost:3002/api/vehiculos');
                 const data = await response.json();
                 setCardsData(data);
                 
@@ -43,7 +43,7 @@ export default function Vehiculos() {
         try {
             const { nombre, app, apm, ...vehiculoData } = editableRow;
 
-            const response = await fetch(`http://localhost:3001/api/vehiculos/${editableRow.id}`, {
+            const response = await fetch(`http://localhost:3002/api/vehiculos/${editableRow.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function Vehiculos() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/api/vehiculos/${rowToDelete.id}`, {
+            const response = await fetch(`http://localhost:3002/api/vehiculos/${rowToDelete.id}`, {
                 method: 'DELETE',
             });
 
